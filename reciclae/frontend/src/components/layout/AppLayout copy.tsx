@@ -54,7 +54,6 @@
 
 
 
-
 import SkipToContentLink from "../a11y/SkipToContentLink";
 import Header from "./Header";
 // Não precisamos mais de Home, About e useLocation/Link aqui, pois o Layout
