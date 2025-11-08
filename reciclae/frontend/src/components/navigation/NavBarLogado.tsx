@@ -1,6 +1,6 @@
 import '../../styles/header.css';
 
-export default function NavBar() {
+export default function NavBarLogado() {
   return (
     <nav className='btn-header'>
       <ul>
@@ -9,8 +9,6 @@ export default function NavBar() {
         <li className='btn-header-link'>Pontos de coleta</li>
         <li className='btn-header-link'>Cadastrar Veículo</li>
         <li className='btn-header-link'>Contato</li>
-        <li className='btn-login-cadastro btn-login'>Login</li>
-        <li className='btn-login-cadastro btn-cadastro'>Cadastrar</li>
       </ul>
     </nav>
   )

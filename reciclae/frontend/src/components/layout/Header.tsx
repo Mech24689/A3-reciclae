@@ -1,8 +1,21 @@
 import NavBar from '../navigation/NavBar'
-import { Link } from 'react-router-dom'
+import NavBarLogado from '../navigation/NavBarLogado';
+import { Link, useLocation } from 'react-router-dom'
 import '../../styles/header.css';
 
 export default function Header() {
+  const location = useLocation();
+  const currentPath = location.pathname;
+  let NavbarComponent;
+
+  if (currentPath === '/') {
+    NavbarComponent = <NavBar />;
+  } else if (currentPath === '/sobre-nos') {
+    NavbarComponent = <NavBarLogado />;
+  } else {
+    NavbarComponent = <NavBar />; 
+  }
+
   return (
     <header className="header">
         <Link to="/" className="brand">
@@ -11,7 +24,9 @@ export default function Header() {
           <span>ReciclaÊ</span>
         </div>
         </Link>
-        <NavBar />
+        <Link to={currentPath} className="brand">
+        {NavbarComponent}
+      </Link>
     </header>
   )
 }
