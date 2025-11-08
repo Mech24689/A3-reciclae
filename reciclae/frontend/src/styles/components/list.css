@@ -1,0 +1,23 @@
+/* src/styles/components/list.css
+********************************************************************************
+* Estilos para listas e itens listados, estruturando conteúdo em grid          *
+* com espaçamento consistente entre elementos.                                 *
+********************************************************************************
+* | Classe     | Função principal           | Objetivo central (muda por CSS)  |
+* | ---------- | -------------------------- | -------------------------------- |
+* | .list      | Lista em grid              | Espaçamento entre itens          |
+* | .list-item | Item da lista              | Delimitação e legibilidade       |
+********************************************************************************
+*/
+
+.list {
+  display: grid;
+  gap: .5rem;
+}
+
+.list-item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: .75rem;
+  border-radius: 10px;
+}

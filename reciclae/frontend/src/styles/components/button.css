@@ -1,0 +1,41 @@
+/* src/styles/components/button.css
+********************************************************************************
+* Estilos de botões principais, secundários e ghost, com ênfase em             *
+* acessibilidade, estados de hover e consistência visual.                      *
+********************************************************************************
+* | Classe        | Função principal         | Objetivo central (muda por CSS) |
+* | ------------- | ------------------------ | --------------------------------|
+* | .btn          | Botão padrão/primário    | Ação principal e destaque       |
+* | .btn.secondary| Variação secundária      | Hierarquia de ações             |
+* | .btn.ghost    | Variante ghost           | Ação leve/menos ênfase          |
+* | .btn:hover    | Estado hover             | Feedback visual                 |
+********************************************************************************
+*/
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: .55rem .9rem;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    background: var(--primary);
+    color: #fff;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.btn.secondary {
+    background: var(--secondary);
+}
+
+.btn.ghost {
+    background: transparent;
+    color: var(--fg);
+    border-color: var(--border);
+}
+
+.btn:hover {
+    filter: brightness(1.05);
+}

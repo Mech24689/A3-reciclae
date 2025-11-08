@@ -1,0 +1,32 @@
+/* 1. Tokens (design system global) */
+@import "./tokens/colors.css";  /* Variáveis e temas globais */
+
+/* 2. Base (reset, estrutura e helpers genéricos) */
+@import "./base/general.css";   /* html, body, tipografia global */
+@import "./base/grids.css";     /* grids e containers */
+@import "./base/utilities.css"; /* classes utilitárias e helpers */
+
+/* 3. Layout (estrutura macro da página) */
+@import "./layout/shell.css";   /* estrutura geral: header + main + footer */
+@import "./layout/header.css";  /* topo e navegação */
+@import "./layout/aside.css";   /* barra lateral */
+@import "./layout/footer.css";  /* rodapé */
+@import "./layout/media.css";   /* ajustes de responsividade global */
+
+/* 4. Components (blocos reutilizáveis e interativos) */
+@import "./components/pages.css";           /* título e seções de página */
+@import "./components/card.css";            /* cartões */
+@import "./components/list.css";            /* listas e itens */
+@import "./components/form.css";            /* formulários */
+@import "./components/button.css";          /* botões */
+@import "./components/search-filters.css";  /* barra de busca e filtros */
+@import "./components/tags.css";            /* etiquetas e badges */
+@import "./components/modal.css";           /* modais */
+@import "./components/tooltip.css";         /* tooltips */
+@import "./components/alert-toast.css";     /* alertas e toasts */
+@import "./components/loading.css";         /* spinner, empty-state */
+@import "./components/skeleton.css";        /* skeleton, skeleton-line, skeletonize,  */
+@import "./components/image.css";           /* imagens responsivas */
+
+/* 5. A11y (acessibilidade e navegação por teclado) */
+@import "./a11y/accessibility.css";

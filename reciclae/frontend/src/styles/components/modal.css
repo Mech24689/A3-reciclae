@@ -1,0 +1,35 @@
+/* src/styles/components/modal.css
+*******************************************************************************
+* Estilos do modal e do backdrop, incluindo posicionamento, espaçamento,      *
+* e aparência dos diálogos flutuantes.                                        *
+*******************************************************************************
+* | Classe           | Função principal     | Objetivo central (muda por CSS) |
+* | ---------------- | -------------------- | --------------------------------|
+* | .modal-backdrop  | Sombreamento de fundo| Foco e isolamento de contexto   |
+* | .modal           | Janela do modal      | Legibilidade e espaçamento      |
+*******************************************************************************
+*/
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, .5);
+  display: grid;
+  place-items: center; 
+  padding: 1rem;
+}
+
+.modal {
+  position: static;   
+  inset: auto;        
+  margin: 0;          
+  display: grid;
+  background: var(--card);
+  color: var(--fg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  width: min(560px, 100%);
+  gap: .75rem;
+}

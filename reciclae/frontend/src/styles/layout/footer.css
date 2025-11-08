@@ -1,0 +1,21 @@
+/* src/styles/layout/footer.css
+***********************************************************************************
+* Aparência e estrutura do rodapé, definindo espaçamento, alinhamento             *
+* e bordas superiores para fechamento visual da página.                           *
+**********************************************************************************|
+* | Classe        | Função principal            | Objetivo central (muda por CSS) |
+* | ------------- | --------------------------- | ------------------------------- |
+* | .footer       | Barra inferior              | Encerramento e separação        |
+* | .footer-inner | Conteúdo do rodapé          | Legibilidade e alinhamento      |
+***********************************************************************************
+*/
+
+.footer {
+  border-top: 1px solid var(--border);
+  background: var(--card);
+}
+
+.footer-inner {
+  padding: 1rem;
+  text-align: center;
+}

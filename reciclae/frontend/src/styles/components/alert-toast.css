@@ -1,0 +1,43 @@
+/* src/styles/components/alert-toast.css
+****************************************************************************
+* Estilos de alertas e toasts, definindo cores, bordas e                   *
+* estrutura visual para mensagens de status (sucesso/erro).                *
+****************************************************************************
+* | Classe        | Função principal     | Objetivo central (muda por CSS) |
+* | ------------- | -------------------- | --------------------------------|
+* | .alert        | Caixa de alerta      | Delimitação e legibilidade      |
+* | .alert.success| Variação de sucesso  | Semântica de feedback           |
+* | .alert.error  | Variação de erro     | Semântica de feedback           |
+* | .toast        | Notificação flutuante| Visibilidade e posição          |
+****************************************************************************
+*/
+
+.alert {
+    padding: .75rem 1rem;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--card);
+}
+
+.alert.success {
+    border-color: #14532d;
+    background: #0d1f14;
+    color: #b7f7c0;
+}
+
+.alert.error {
+    border-color: #7f1d1d;
+    background: #2a1212;
+    color: #fecaca;
+}
+
+.toast {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: .75rem 1rem;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+}

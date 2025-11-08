@@ -1,0 +1,21 @@
+/* src/styles/layout/shell.css
+**************************************************************************************
+* Estrutura principal da aplicação (.app-shell), controlando o posicionamento        *
+* do cabeçalho, corpo e rodapé dentro da hierarquia da página.                       *
+**************************************************************************************
+* | Classe      | Função principal                 | Objetivo central (muda por CSS) |
+* | ----------- | -------------------------------- | --------------------------------|
+* | .app-shell  | Grid global header/main/footer   | Arquitetura de layout           |
+* | .app-body   | Área de conteúdo                 | Respiro e organização           |
+**************************************************************************************
+*/
+
+.app-shell {
+  min-height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+.app-body {
+  padding-block: 1rem;
+}

@@ -1,0 +1,69 @@
+/* src/styles/layout/header.css
+********************************************************************************************
+* Estilos do cabeçalho fixo e da navegação superior, incluindo marca,                      *
+* logo, links, espaçamento e comportamento responsivo.                                     *
+********************************************************************************************
+* | Classe            | Função principal                  | Objetivo central (muda por CSS)|
+* | ----------------- | --------------------------------- | -------------------------------|
+* | .header           | Barra superior sticky             | Persistência e separação       |
+* | .header-inner     | Grid interno do header            | Alinhamento de itens           |
+* | .brand            | Área de marca/logotipo            | Identidade visual              |
+* | .top-nav .nav-list| Navegação horizontal              | Distribuição de links          |
+* | .top-nav a        | Link de navegação                 | Estado, foco e toque           |
+********************************************************************************************
+*/
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  padding: 1rem;
+}
+ 
+.header .header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 75rem;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  text-decoration: none;
+  color: var(--fg);
+  font-weight: 700;
+}
+
+.brand img {
+  width: 28px;
+  height: 28px;
+}
+
+.top-nav .nav-list {
+ display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.top-nav a {
+  color: var(--fg);
+  text-decoration: none;
+  padding: .5rem .75rem;
+  border-radius: 8px;
+}
+
+.top-nav a.active,
+.top-nav a:hover {
+  background: var(--border);
+}

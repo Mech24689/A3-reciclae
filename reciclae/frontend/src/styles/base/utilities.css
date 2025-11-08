@@ -1,0 +1,93 @@
+/*
+***********************************************************************************
+* Classes utilitárias cada uma aplica uma única propriedade ou pequeno conjunto   |
+* de propriedades CSS, úteis em qualquer contexto, sem depender de componentes    |
+**********************************************************************************|
+* | Classe       | Função principal                    | Tipo de utilitário       |
+* | ------------ | ----------------------------------- | ------------------------ |
+* | `.container` | Centraliza e limita o conteúdo      | Layout global            |
+* | `.muted`     | Define cor de texto suave           | Estilo tipográfico       |
+* | `.p-3`       | Padding interno                     | Espaçamento interno      |
+* | `.mt-2`      | Margem superior                     | Espaçamento externo      |
+* | `.gap-2`     | Espaço entre itens flex/grid        | Layout interno           |
+* | `.flex-row`  | Layout flexível horizontal          | Estrutura de alinhamento |
+* | `.vh`        | Oculta visualmente (acessibilidade) | Acessibilidade / UX      |
+* | `paragraph`  | Paragrafo                           | Acessibilidade / UX      |
+***********************************************************************************
+*/
+.container {
+    max-width: 75rem;
+    margin-inline: auto;
+    padding: 0 1rem;
+}
+
+.muted {
+    color: var(--muted);
+}
+
+.p-3 {
+    padding: 1rem;
+}
+
+.mt-2 {
+    margin-top: .75rem;
+}
+
+.mb-3 {
+    margin-bottom: 1rem;
+}
+
+.gap-2 {
+    gap: .5rem;
+}
+
+.paragraph {
+    line-height: 1.6;
+    color: var(--fg);
+    margin-bottom: 1rem;
+}
+
+/* variantes de texto */
+.text-sm {
+    font-size: 0.875rem;
+    line-height: 1.5;
+}
+
+.text-lead {
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: var(--fg);
+}
+
+.flex-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+    gap: .5rem;
+}
+
+.items-center { align-items: center; }
+.items-start  { align-items: flex-start; }
+.items-end    { align-items: flex-end; }
+
+.flex-1 { flex: 1 1 auto; min-width: 0; }
+
+.justify-start  { justify-content: flex-start; }
+.justify-center { justify-content: center; }
+.justify-end    { justify-content: flex-end; }
+.justify-between{ justify-content: space-between; }
+.justify-around { justify-content: space-around; }
+.flex-nowrap    { flex-wrap: nowrap; }
+
+.vh {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}

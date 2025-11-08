@@ -1,0 +1,80 @@
+/* src/styles/components/skeleton.css
+********************************************************************************
+* Skeletons: placeholders e “skeletonize” (pinta a árvore enquanto carrega)    *
+********************************************************************************
+* | Classe        | Função principal              | Objetivo central           |
+* | ------------- | ----------------------------- | -------------------------- |
+* | .skeleton     | Lista de linhas placeholder   | Densidade/ritmo visual     |
+* | .skeleton-line| Linha de skeleton             | Altura/ritmo (pulse)       |
+* | .skeletonize  | Congelar UI e aplicar shimmer | Bloquear interação/efeito  |
+********************************************************************************
+*/
+
+/* lista de linhas (modo clássico) */
+.skeleton { display: grid; gap: .5rem; }
+.skeleton-line {
+  height: 12px;
+  background: linear-gradient(90deg, rgba(255,255,255,.08), rgba(0,0,0,.08), rgba(255,255,255,.08));
+  border-radius: 6px;
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+/* “congela” o layout e aplica shimmer nos filhos (modo wrapper) */
+.skeletonize * {
+  color: transparent !important;
+  text-shadow: none !important;
+  pointer-events: none !important;
+}
+
+/* superfícies comuns com shimmer */
+.skeletonize .card,
+.skeletonize .form,
+.skeletonize .form-field,
+.skeletonize .responsive-img,
+.skeletonize .input,
+.skeletonize .textarea,
+.skeletonize .select,
+.skeletonize input,
+.skeletonize textarea,
+.skeletonize select,
+.skeletonize .btn,
+.skeletonize .skeleton-line,
+.skeletonize p,
+.skeletonize h1,
+.skeletonize h2,
+.skeletonize h3 {
+  border-color: var(--border);
+  background: linear-gradient(90deg, rgba(255,255,255,.08), rgba(0,0,0,.08), rgba(255,255,255,.08));
+  border-radius: 10px;
+  animation: pulse 1.2s ease-in-out infinite;
+  position: relative;
+}
+
+/* acessibilidade: reduzir animação */
+@media (prefers-reduced-motion: reduce) {
+  .skeletonize .card,
+  .skeletonize .form,
+  .skeletonize .form-field,
+  .skeletonize .responsive-img,
+  .skeletonize .input,
+  .skeletonize .textarea,
+  .skeletonize .select,
+  .skeletonize .skeleton-line,
+  .skeletonize .btn,
+  .skeletonize input,
+  .skeletonize textarea,
+  .skeletonize select,
+  .skeletonize p,
+  .skeletonize h1,
+  .skeletonize h2,
+  .skeletonize h3 {
+    animation: none;
+    opacity: .6;
+  }
+}
+
+/* animação do skeleton */
+@keyframes pulse {
+  0%, 100% { opacity: .6; }
+  50%      { opacity: 1;  }
+}

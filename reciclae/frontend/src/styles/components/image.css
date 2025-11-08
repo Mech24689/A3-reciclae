@@ -1,0 +1,17 @@
+/* src/styles/components/image.css
+*****************************************************************************
+* Estilos para imagens responsivas, garantindo ajuste proporcional          *
+* e ocupação máxima dentro dos contêineres.                                 *
+*****************************************************************************
+* | Classe         | Função principal     | Objetivo central (muda por CSS) |
+* | -------------- | -------------------- | --------------------------------|
+* | .responsive-img| Imagem fluida        | Largura máxima e proporção      |
+*****************************************************************************
+*/
+
+.responsive-img {
+    display: block;
+    border-radius: var(--radius);
+    max-width: 100%;
+    height: auto;
+}

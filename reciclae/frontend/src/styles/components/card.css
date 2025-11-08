@@ -1,0 +1,52 @@
+/* src/styles/components/card.css
+************************************************************************************
+* Estilos dos cartões (.card), definindo fundo, borda, sombra, espaçamento         *
+* interno e comportamento de links ou interações.                                  *
+************************************************************************************
+* | Classe         | Função principal            | Objetivo central                |
+* | -------------- | --------------------------- | --------------------------------|
+* | .card          | Contêiner de conteúdo       | Realce e separação visual       |
+* | a.card:link    | Estado de link normal       | Consistência de cor/decoração   |
+* | a.card:visited | Estado de link visitado     | Uniformidade visual             |
+* | a.card:is(...) | Hover/focus do card         | Feedback de interação           |
+************************************************************************************
+*/
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  box-shadow: var(--shadow);
+  display: grid;
+  gap: .5rem;
+}
+
+a.card:link,
+a.card:visited {
+  color: inherit;           /* mesma cor para visitado e não visitado */
+  text-decoration: none;    /* evita sublinhado no card inteiro */
+}
+
+a.card:is(:hover, :focus-visible) {
+  text-decoration: none;
+  /* seus efeitos de hover/focus aqui */
+}
+
+/* -------- Controle da largura do card partindo do mobile -------- */
+.card-sm,
+.card-md,
+.card-lg,
+.card-xl {
+  width: 90%;
+  max-width: 100%;
+  margin-inline: auto;
+}
+
+@media (min-width: 768px){
+  .card-sm { width: 25%; }
+  .card-md { width: 50%; }
+  .card-lg { width: 75%; }
+  .card-xl { width: 100%; }
+}
+

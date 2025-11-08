@@ -1,0 +1,21 @@
+/* src/styles/components/tag.css
+***************************************************************************
+* Estilos de badges e etiquetas (.tag-badge) usadas para destacar         *
+* categorias, estados ou informações curtas.                              *
+***************************************************************************
+* | Classe      | Função principal      | Objetivo central (muda por CSS) |
+* | ----------- | --------------------- | --------------------------------|
+* | .tag-badge  | Etiqueta/Badge        | Realce e codificação visual     |
+***************************************************************************
+*/
+
+.tag-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: .15rem .5rem;
+  border-radius: 999px;
+  background: var(--brand);
+  color: #03111b;
+  font-weight: 700;
+  font-size: .75rem;
+}

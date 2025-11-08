@@ -1,0 +1,41 @@
+/* src/styles/base/general.css
+*************************************************************************************
+* Regras globais aplicadas a html, body e #root, definindo tipografia,              *
+* espaçamento padrão, e comportamento estrutural da página.                         *
+************************************************************************************|
+* | Classe/Seletor | Função principal              | Objetivo central (muda por CSS)|
+* | ---------------| ------------------------------| -------------------------------|
+* | html, body     | Reset/normalização            | Base tipográfica e de layout   |
+* | #root          | Contêiner da aplicação        | Área de montagem do app        |
+*************************************************************************************
+*/
+
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    font-size: 16px;
+}
+
+html, 
+body,
+#root {
+    height: 100%;
+}
+
+body {
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.5;
+}
+
+main{
+    width: min(70rem, 100%);
+    margin-inline: auto;
+    padding-inline: clamp(1rem, 4vw, 2.5rem);
+}

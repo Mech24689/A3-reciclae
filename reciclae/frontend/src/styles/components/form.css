@@ -1,0 +1,70 @@
+/* src/styles/components/form.css
+******************************************************************************************
+* Estilos de formulários, campos de entrada e agrupamentos, incluindo                    *
+* labels, inputs, selects, checkboxes e radio buttons.                                   *
+******************************************************************************************
+* | Classe/Seletor       | Função principal            | Objetivo central (muda por CSS) |
+* | -------------------- | --------------------------- | --------------------------------|
+* | .form                | Layout do formulário        | Fluxo vertical e largura        |
+* | .form-field          | Grupo label+campo           | Espaço e clareza                |
+* | label                | Rótulo do campo             | Ênfase e leitura                |
+* | .input/.textarea     | Campos de texto             | Usabilidade e contraste         |
+* | .select              | Campo de seleção            | Consistência visual             |
+* | input[type="search"] | Campo de busca              | UX de pesquisa                  |
+* | .checkbox/.radio     | Controles binários          | Alinhamento e toque             |
+* | .radio-group         | Agrupar opções              | Espaçamento horizontal          |
+******************************************************************************************
+*/
+
+.form {
+    display: grid;
+    gap: .75rem;
+    max-width: 100%;
+}
+
+.form-field {
+    display: grid;
+    gap: .25rem;
+}
+
+label {
+    font-weight: 600;
+}
+
+.form-field label.required::after {
+  content: " *";
+  
+}
+
+.input,
+.textarea,
+.select,
+input[type="search"] {
+    width: 100%;
+    padding: .625rem .75rem;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--fg);
+    border-radius: 10px;
+}
+
+.checkbox,
+.radio {
+    accent-color: var(--primary);
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+.radio-group {
+    accent-color: var(--primary);
+    padding: 0 0.5rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.radio-group legend {
+    text-align: center;
+    padding: 0 0.5rem;
+}
+

@@ -1,0 +1,46 @@
+/* src/styles/layout/media.css
+*******************************************************************************************
+* Ajustes de responsividade para telas menores (até 768px),                               *
+* reorganizando grids, cabeçalhos e espaçamentos conforme necessário.                     *
+*******************************************************************************************
+* | Classe/Seletor        | Função principal            | Objetivo central (muda por CSS) |
+* | --------------------- | --------------------------- | --------------------------------|
+* | .header-inner         | Grid adaptativo do header   | Colunas, gap e altura           |
+* | .top-nav .nav-list    | Quebra/empacotamento        | Flex-wrap e espaçamento         |
+* | .grid-cols-3          | Reduzir para 1 coluna       | Template de colunas             |
+*******************************************************************************************
+*/
+
+/* @media (max-width: 768px) {
+  .header-inner {
+    grid-template-columns: 1fr auto;
+    gap: .5rem;
+    height: auto;
+    padding: .5rem 0;
+  }
+
+  .top-nav .nav-list {
+    flex-wrap: wrap;
+  }
+
+  .grid-cols-3 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+} */
+
+@media (max-width: 1024px) {
+  .header .header-inner {
+    grid-template-columns: 1fr auto; /* brand | search ; nav quebra abaixo */
+    row-gap: .5rem;
+  }
+  .top-nav { order: 2; width: 100%; }
+  .searchbar { order: 3; justify-self: end; }
+  .brand { order: 1; }
+}
+
+@media (max-width: 768px) {
+  .header .header-inner { grid-template-columns: 1fr; }
+  .top-nav .nav-list { flex-wrap: wrap; gap: .25rem; }
+  .searchbar { width: 100%; }
+}
+

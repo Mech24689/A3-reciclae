@@ -1,0 +1,30 @@
+/* src/styles/components/page.css
+************************************************************************************
+* Estrutura e hierarquia visual das páginas internas, incluindo títulos,           *
+* seções, espaçamento e tipografia associada.                                      *
+************************************************************************************
+* | Classe         | Função principal            | Objetivo central (muda por CSS) |
+* | -------------- | --------------------------- | --------------------------------|
+* | .page-title    | Cabeçalho de página         | Ênfase e margem inferior        |
+* | .section       | Bloco/seção de conteúdo     | Agrupamento e espaçamento       |
+* | .section-title | Título de seção             | Hierarquia e leitura            |
+************************************************************************************
+*/
+
+.page-title {
+    margin-bottom: 1rem;
+}
+
+.page-title h1 {
+    font-size: 1.75rem;
+}
+
+.section {
+    display: grid;
+    gap: .75rem;
+    margin-bottom: 1rem;
+}
+
+.section-title {
+    font-size: 1.25rem;
+}

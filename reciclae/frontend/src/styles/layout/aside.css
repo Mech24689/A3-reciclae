@@ -1,0 +1,46 @@
+/* src/styles/layout/aside.css
+*************************************************************************************
+* Estilos da barra lateral de navegação, com títulos de seções,                     *
+* listas de links e destaque para itens ativos ou em foco.                          *
+*************************************************************************************
+* | Classe        | Função principal              | Objetivo central (muda por CSS) |
+* | ------------- | ----------------------------- | --------------------------------|
+* | .side-nav     | Contêiner lateral sticky      | Navegação contextual            |
+* | .side-title   | Título da seção               | Hierarquia visual               |
+* | .side-list    | Lista de itens                | Organização vertical            |
+* | .side-list a  | Link do menu                  | Estados ativo/hover             |
+*************************************************************************************
+*/
+
+.side-nav {
+  position: sticky;
+  top: 72px;
+  padding: 1rem;
+  background: var(--card);
+  border-right: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.side-title {
+  font-weight: 700;
+  margin-bottom: .5rem;
+}
+
+.side-list {
+  list-style: none;
+  display: grid;
+  gap: .25rem;
+}
+
+.side-list a {
+  text-decoration: none;
+  color: var(--fg);
+  padding: .5rem .75rem;
+  border-radius: 8px;
+  display: block;
+}
+
+.side-list a.active,
+.side-list a:hover {
+  background: var(--border);
+}

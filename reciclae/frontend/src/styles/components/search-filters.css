@@ -1,0 +1,31 @@
+/* src/styles/components/search-filters.css
+*********************************************************************************
+* Layout e aparência da barra de busca e dos filtros de ordenação,              *
+* incluindo espaçamento, selects e controles associados.                        *
+*********************************************************************************
+* | Classe         | Função principal        | Objetivo central (muda por CSS)  |
+* | -------------- | ----------------------- | -------------------------------- |
+* | .searchbar     | Grupo de busca          | Organização e espaçamento        |
+* | .filters-bar   | Barra de filtros        | Alinhamento de controles         |
+* | .sort-control  | Agrupamento do select   | Consistência do input            |
+*********************************************************************************
+*/
+
+.searchbar {
+    display: inline-flex;
+    gap: .5rem;
+}
+
+.filters-bar {
+    display: inline-flex;
+    gap: .5rem;
+    align-items: center;
+}
+
+.sort-control select {
+    padding: .5rem;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--fg);
+}

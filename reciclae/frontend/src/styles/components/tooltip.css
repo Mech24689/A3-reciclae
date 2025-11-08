@@ -1,0 +1,30 @@
+/* src/styles/components/tooltip.css
+***********************************************************************************
+* Estilos de tooltips, controlando posição, cor de fundo, texto e                 *
+* comportamento de exibição ao passar o mouse.                                    *
+***********************************************************************************
+* | Classe                 | Função principal  | Objetivo central (muda por CSS)  |
+* | ---------------------- | ----------------- | -------------------------------- |
+* | .tooltip               | Contêiner/ancora  | Contexto do hint                 |
+* | .tooltip:hover::after  | Balão do tooltip  | Texto, contraste e posição       |
+***********************************************************************************
+*/
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip:hover::after {
+    content: attr(data-label);
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--fg);
+    color: var(--bg);
+    padding: .25rem .5rem;
+    border-radius: 6px;
+    font-size: .75rem;
+    white-space: nowrap;
+}

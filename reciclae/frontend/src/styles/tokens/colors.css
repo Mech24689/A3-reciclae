@@ -1,0 +1,79 @@
+/* src/styles/tokens/colors.css
+***************************************************************************************************************
+* Definições e manipulação de cores base do sistema. Este arquivo centraliza todas as variáveis
+* CSS relacionadas à identidade visual do tema, garantindo consistência entre modo claro e escuro.
+* Inclui cores para fundo, texto, bordas, cartões, marcas e estados (erro, aviso, sucesso).
+***************************************************************************************************************
+* | Classe/Token                 | Função principal                        | Objetivo central                 |
+* | ---------------------------- | --------------------------------------- | ---------------------------------|
+* | --bg / --fg                  | Cores principais de fundo e texto       | Contraste e legibilidade         |
+* | --muted                      | Tom secundário de texto                 | Hierarquia tipográfica           |
+* | --card / --border            | Cores de elementos estruturais          | Definição de planos e contornos  |
+* | --brand / --brand-ink        | Cores da identidade visual principal    | Identidade e destaques visuais   |
+* | --primary / --secondary      | Paleta funcional de ações e apoio       | Hierarquia de interação          |
+* | --warn / --error / --success | Cores de estados de sistema             | Feedback e comunicação visual    |
+* | --radius / --shadow          | Tokens de borda e sombra                | Profundidade e estilo de caixas  |
+* | @media(prefers-color-scheme) | Alternância de tema automática          | Adaptação clara/escura do sistema|
+* | [data-theme="dark"]          | Força modo escuro                       | Personalização do usuário        |
+* | [data-theme="light"]         | Força modo claro                        | Controle manual do tema          |
+***************************************************************************************************************
+*/
+ 
+:root {
+    --bg: #ffffff;
+    --fg: #1f2937;
+    --muted: #4b5563;
+    --card: #ffffff;
+    --border: #cbd5e1;
+    --brand: #0ea5e9;
+    --brand-ink: #0b4e77;
+    --primary: #0f766e;
+    --secondary: #475569;
+    --warn: #eab308;
+    --error: #ef4444;
+    --success: #22c55e;
+    --radius: 14px;
+    --shadow: 0 10px 24px rgba(0, 0, 0, .08);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        color-scheme: dark;
+    }
+
+    html[data-theme="auto"] {
+        --bg: #0b1220;
+        --fg: #e5e7eb;
+        --muted: #9ca3af;
+        --card: #111827;
+        --border: #3b4455;
+        --brand: #38bdf8;
+        --brand-ink: #7dd3fc;
+        --primary: #22d3ee;
+        --secondary: #94a3b8;
+    }
+}
+
+html[data-theme="dark"] {
+    --bg: #0b1220;
+    --fg: #e5e7eb;
+    --muted: #9ca3af;
+    --card: #111827;
+    --border: #3b4455;
+    --brand: #38bdf8;
+    --brand-ink: #7dd3fc;
+    --primary: #22d3ee;
+    --secondary: #94a3b8;
+}
+
+html[data-theme="light"] {
+    --bg: #ffffff;
+    --fg: #1f2937;
+    --muted: #6b7280;
+    --card: #ffffff;
+    --border: #cbd5e1;
+    --brand: #0ea5e9;
+    --brand-ink: #0b4e77;
+    --primary: #0f766e;
+    --secondary: #475569;
+}

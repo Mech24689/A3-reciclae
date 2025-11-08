@@ -1,0 +1,26 @@
+/* src/styles/a11y/accessibility.css
+*************************************************************************************
+* Regras de acessibilidade, incluindo o link de pular para conteúdo                 *
+* e foco visível para navegação por teclado.                                        *
+*************************************************************************************
+* | Classe             | Função principal          | Objetivo central (muda por CSS)|
+* | ------------------ | ------------------------- | -------------------------------|
+* | .skip-to-content   | Link de pular conteúdo    | Visibilidade no foco           |
+* | .skip-to-content:focus | Estado focado         | Posição e contraste            |
+*************************************************************************************
+*/
+
+.skip-to-content {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--brand);
+  color: #021018;
+  padding: .5rem .75rem;
+  border-radius: 8px;
+}
+
+.skip-to-content:focus {
+  left: .5rem;
+  top: .5rem;
+}
