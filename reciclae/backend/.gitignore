@@ -1,0 +1,18 @@
+# Diretórios de Módulos (NUNCA DEVEM SER COMMITTADOS)
+/node_modules
+/dist
+
+# Variáveis de Ambiente (CONTÉM SENHAS E CREDENCIAIS)
+.env
+.env.local
+
+# Logs e Dados de Runtime
+npm-debug.log*
+yarn-debug.log*
+.npm
+
+# Cache do TypeScript
+*.tsbuildinfo
+
+# Arquivos gerados pelo Knex (Se estiverem na raiz e não em db/)
+knexfile.js
