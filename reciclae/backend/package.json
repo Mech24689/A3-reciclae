@@ -1,9 +1,43 @@
 {
+  "name": "api-reciclagem-cidada",
+  "version": "1.0.0",
+  "description": "API para o sistema de gestão de reciclagem cidadã.",
+  "main": "dist/server.js",
+  "scripts": {
+    "start": "ts-node src/server.ts",
+    "dev": "ts-node-dev --files --respawn src/server.ts",
+    "build": "tsc",
+    "knex:migrate": "knex --knexfile db/knexfile.ts migrate:latest",
+    "knex:rollback": "knex --knexfile db/knexfile.ts migrate:rollback",
+    "knex:make": "knex --knexfile db/knexfile.ts migrate:make -x ts",
+    "knex:seed": "knex --knexfile db/knexfile.ts seed:run",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "typescript",
+    "express",
+    "knex",
+    "postgresql"
+  ],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "axios": "^1.13.2",
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
-    "express": "^5.1.0",
-    "knex": "^3.1.0",
-    "nodemon": "^3.1.10"
+    "dotenv": "^16.3.1",
+    "express": "^4.21.2",
+    "knex": "^3.0.1",
+    "pg": "^8.11.3"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cors": "^2.8.15",
+    "@types/express": "^4.17.20",
+    "@types/knex": "^0.16.1",
+    "@types/node": "^20.8.10",
+    "@types/pg": "^8.10.7",
+    "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.2.2"
   }
 }

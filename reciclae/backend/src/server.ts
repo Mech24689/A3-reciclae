@@ -1,0 +1,42 @@
+// src/server.ts
+
+import express, { Request, Response, NextFunction } from 'express';
+import cors from 'cors';
+import routes from './routes';
+
+// Para produção, é altamente recomendável usar um logger como 'morgan' ou 'winston'
+
+// --- Configuração ---
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// --- Middlewares ---
+
+// CORS (Cross-Origin Resource Sharing)
+// Em produção, você deve restringir as origens (origins) permitidas.
+app.use(cors());
+
+// Body Parser: Para receber JSON no corpo das requisições
+app.use(express.json());
+
+// --- Rotas ---
+// Todas as rotas serão prefixadas com /api (opcional, mas comum)
+app.use('/api', routes);
+
+
+// --- Tratamento de Erros Global (Middleware de Erro) ---
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+    console.error(`Erro Global capturado: ${err.message}`);
+    // Em produção, você pode ocultar o erro interno para o cliente
+    res.status(500).json({
+        message: 'Ocorreu um erro interno no servidor.',
+        error: process.env.NODE_ENV === 'development' ? err.message : undefined,
+    });
+});
+
+
+// --- Inicialização do Servidor ---
+app.listen(PORT, () => {
+    console.log(`🚀 Servidor Express rodando em http://localhost:${PORT}`);
+    console.log(`Ambiente: ${process.env.NODE_ENV || 'development'}`);
+});
