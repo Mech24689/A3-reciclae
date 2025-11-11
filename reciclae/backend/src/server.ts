@@ -14,15 +14,28 @@ const PORT = process.env.PORT || 3000;
 
 // CORS (Cross-Origin Resource Sharing)
 // Em produção, você deve restringir as origens (origins) permitidas.
-app.use(cors());
+app.use(cors({
+    origin: "*",
+    methods: [
+      "GET",
+      "POST",
+      "PUT",
+      "PATCH",
+      "DELETE",
+      "OPTIONS",
+    ],
+    allowedHeaders: ["Content-Type"],
+  }));
 
 // Body Parser: Para receber JSON no corpo das requisições
 app.use(express.json());
 
+// const swaggerSpec = swaggerJsdoc(options);
+// app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 // --- Rotas ---
 // Todas as rotas serão prefixadas com /api (opcional, mas comum)
 app.use('/api', routes);
-
 
 // --- Tratamento de Erros Global (Middleware de Erro) ---
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
@@ -34,9 +47,13 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     });
 });
 
-
 // --- Inicialização do Servidor ---
 app.listen(PORT, () => {
     console.log(`🚀 Servidor Express rodando em http://localhost:${PORT}`);
     console.log(`Ambiente: ${process.env.NODE_ENV || 'development'}`);
 });
+
+
+
+
+export default app; // EXPORTE A INSTÂNCIA DO APP AQUI!

@@ -49,6 +49,8 @@ export async function createPessoa(req: Request, res: Response): Promise<void> {
   const newPessoaData: PessoaCreate = req.body;
 
   // Validação de campos obrigatórios
+  console.log('Dados recebidos para criação de pessoa:', newPessoaData);
+
   if (!newPessoaData.nome || !newPessoaData.prefeitura_id) {
     res.status(400).json({ message: 'Os campos "nome" e "prefeitura_id" são obrigatórios.' });
     return;

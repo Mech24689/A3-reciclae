@@ -3,7 +3,7 @@
 /**
  * Define os valores permitidos para o campo 'tipo' de usuário.
  */
-export type TipoUsuario = 'CIDADAO' | 'FUNCIONARIO' | 'GESTOR';
+export type TipoUsuario =  'CIDADAO' | 'FUNCIONARIO' | 'GESTOR';
 
 /**
  * Interface que representa a estrutura completa de dados da tabela 'Usuario'.

@@ -10,6 +10,8 @@ import { UsuarioCreate, UsuarioUpdate } from '../models/Usuario';
 export async function registerUsuario(req: Request, res: Response): Promise<void> {
   const newUserData: UsuarioCreate = req.body;
 
+  console.log('Dados recebidos para registro de usuário:', newUserData);
+
   if (!newUserData.login || !newUserData.senha_texto_puro || !newUserData.tipo || !newUserData.prefeitura_id) {
     res.status(400).json({ message: 'Os campos obrigatórios (login, senha_texto_puro, tipo, prefeitura_id) não foram preenchidos.' });
     return;

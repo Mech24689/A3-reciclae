@@ -11,7 +11,7 @@
     "knex:rollback": "knex --knexfile db/knexfile.ts migrate:rollback",
     "knex:make": "knex --knexfile db/knexfile.ts migrate:make -x ts",
     "knex:seed": "knex --knexfile db/knexfile.ts seed:run",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --detectOpenHandles --forceExit"
   },
   "keywords": [
     "typescript",
@@ -28,16 +28,22 @@
     "dotenv": "^16.3.1",
     "express": "^4.21.2",
     "knex": "^3.0.1",
-    "pg": "^8.11.3"
+    "pg": "^8.11.3",
+    "swagger-ui-react": "^5.30.2"
   },
   "devDependencies": {
     "@types/bcrypt": "^6.0.0",
     "@types/bcryptjs": "^2.4.6",
     "@types/cors": "^2.8.15",
     "@types/express": "^4.17.20",
+    "@types/jest": "^30.0.0",
     "@types/knex": "^0.16.1",
     "@types/node": "^20.8.10",
     "@types/pg": "^8.10.7",
+    "@types/supertest": "^6.0.3",
+    "jest": "^30.2.0",
+    "supertest": "^7.1.4",
+    "ts-jest": "^29.4.5",
     "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.2.2"

@@ -24,12 +24,14 @@ import relacionamentoRouter from './agendaColetaRelacionamento.routes';
 
 const routes = Router();
 
+console.log('Registrando rotas da API...');
+
 // Define os prefixos de rota
 routes.use('/prefeituras', prefeituraRouter);
+routes.use('/usuarios', usuarioRouter);
 routes.use('/pessoas', pessoaRouter);
 routes.use('/enderecos', enderecoRouter);
 routes.use('/veiculos', veiculoRouter);
-routes.use('/usuarios', usuarioRouter);
 routes.use('/pontos-coleta', pontoColetaRouter);
 routes.use('/registros-coleta', registroColetaRouter);
 routes.use('/agendas-coleta', agendaColetaRouter);

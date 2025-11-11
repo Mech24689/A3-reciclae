@@ -15,6 +15,10 @@ export async function createUsuario(data: UsuarioCreate): Promise<Usuario> {
   const { senha_texto_puro, ...usuarioData } = data;
 
   try {
+
+  console.log('Criando usuário com dados:', data);
+
+
     // 1. Gerar o hash da senha
     const senha_hash = await bcrypt.hash(senha_texto_puro, SALT_ROUNDS);
 
@@ -34,6 +38,7 @@ export async function createUsuario(data: UsuarioCreate): Promise<Usuario> {
     return usuarioSemSenha as Usuario;
   } catch (err) {
     console.error('Erro ao criar Usuário (Knex):', err);
+    console.error('->', err);
     throw err;
   }
 }

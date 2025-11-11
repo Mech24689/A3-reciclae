@@ -23,25 +23,25 @@ const knexInstance = knex(dbConfig);
 
 // 3. Define a Tabela (Constante para evitar erros de digitação)
 export const Tabela = {
-    PREFEITURA: 'Prefeitura',
-    PESSOA: 'Pessoa',
-    USUARIO: 'Usuario',
-    VEICULO: 'Veiculo',
-    ENDERECO: 'Endereco',
-    PONTO_COLETA: 'PontoColeta',
-    NOTIFICACAO: 'Notificacao',
-    AGENDA_COLETA: 'AgendaColeta',
-    DESAFIO: 'Desafio',
-    RECICLAGEM: 'Reciclagem',
-    RECOMPENSA: 'Recompensa',
-    CONQUISTA: 'Conquista',
-    REGISTRO_COLETA : 'RegistroColeta',
-    AGENDA_COLETA_RELACIONAMENTO : 'AgendaColetaRelacionamento',
-    TIPO_MATERIAL : 'TipoMaterial',
-    CONTAGEM_DESCARTE : 'ContagemDescarte',
-    PARTICIPACAO_DESAFIO : 'ParticipacaoDesafio',
-    RELATORIO_IMPACTO : 'RelatorioImpacto',
-    FEEDBACK : 'Feedback'
+    PREFEITURA: 'prefeitura',
+    PESSOA: 'pessoa',
+    USUARIO: 'usuario',
+    VEICULO: 'veiculo',
+    ENDERECO: 'endereco',
+    PONTO_COLETA: 'pontoColeta',
+    NOTIFICACAO: 'notificacao',
+    AGENDA_COLETA: 'agendaColeta',
+    DESAFIO: 'desafio',
+    RECICLAGEM: 'reciclagem',
+    RECOMPENSA: 'recompensa',
+    CONQUISTA: 'conquista',
+    REGISTRO_COLETA : 'registroColeta',
+    AGENDA_COLETA_RELACIONAMENTO : 'agendaColetaRelacionamento',
+    TIPO_MATERIAL : 'tipoMaterial',
+    CONTAGEM_DESCARTE : 'contagemDescarte',
+    PARTICIPACAO_DESAFIO : 'participacaoDesafio',
+    RELATORIO_IMPACTO : 'relatorioImpacto',
+    FEEDBACK : 'feedback'
     // Adicione outras tabelas conforme necessário
 };
 
