@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom'
 import Header from "./Header";
 import Home from "../../pages/Home"; 
 import About from "../../pages/About";
+import PontosDeColeta from "../../pages/PontosDeColeta"; 
 
 // 1. Definição das Propriedades (Props)
 interface AppLayoutProps {
@@ -26,6 +27,10 @@ export default function AppLayout({
       NavbarComponent = <Home />;
     } else if (currentPath === '/sobre-nos') {
       NavbarComponent = <About />;
+    } else if (currentPath === '/pontos-coleta') {
+      NavbarComponent = <PontosDeColeta/>;
+    } else if (currentPath === '/cadastro-veiculos') {
+      NavbarComponent = <PontosDeColeta/>;
     } else {
       NavbarComponent = <Home />; 
     }
