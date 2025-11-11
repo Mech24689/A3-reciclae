@@ -7,17 +7,9 @@ import EmptyState from '../components/empty/EmptyState'
 export default function CadastroVeiculo() {
   return (
     <>
-      <PageTitle subtitle="Componentes básicos com CSS puro.">Contato</PageTitle>
-      <Section title="Detail View">
-        <DetailView title="Item demonstrativo">
-          <p className="muted">Campos e textos de exemplo para o detalhe.</p>
-        </DetailView>
-      </Section>
-      <Section title="Skeleton / Empty State">
-        <Skeleton>
-          <EmptyState>Carregue dados para visualizar conteúdo.</EmptyState>
-        </Skeleton>
-      </Section>
+      <div>
+        Teste Veiculo
+      </div>
     </>
   )
 }
