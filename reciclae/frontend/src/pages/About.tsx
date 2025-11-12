@@ -4,21 +4,45 @@ import Section from '../components/layout/Section'
 import DetailView from '../components/data-display/DetailView'
 import Skeleton from '../components/loading/Skeleton'
 import EmptyState from '../components/empty/EmptyState'
+import sobreimage from '../assets/Reciclae_Sobrenos.png'
 
 export default function About() {
   return (
-    <>
-      <PageTitle subtitle="Componentes básicos com CSS puro.">About</PageTitle>
-      <Section title="Detail View">
-        <DetailView title="Item demonstrativo">
-          <p className="muted">Campos e textos de exemplo para o detalhe.</p>
-        </DetailView>
-      </Section>
-      <Section title="Skeleton / Empty State">
-        <Skeleton>
-          <EmptyState>Carregue dados para visualizar conteúdo.</EmptyState>
-        </Skeleton>
-      </Section>
-    </>
-  )
+<div className="p-6 max-w-6xl mx-auto bg-[#d2edc9] min-h-screen">
+<PageTitle> Sobre Nós</PageTitle>
+
+
+<div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10 items-start">
+{/* Texto */}
+<div className="space-y-6 text-justify leading-relaxed text-[1.05rem]">
+
+<p >
+Somos uma startup tecnológica e inovadora dedicada à sustentabilidade e à gestão eficiente de resíduos recicláveis.
+Conectamos cidadãos, empresas e prefeituras por meio de mapas interativos, alertas personalizados e logística otimizada
+para o descarte correto.
+</p>
+
+
+<p>
+Inspirados pelo movimento Zero Waste, transformamos consciência ambiental em ação com soluções como desafios sustentáveis,
+relatórios de impacto e validação de coletas via QR code, incentivando hábitos responsáveis e engajamento coletivo.
+</p>
+
+
+<p >
+Com foco em inovação, inclusão e transparência, oferecemos uma plataforma intuitiva e segura. Entre nossos diferenciais estão
+a integração entre tecnologia e meio ambiente, rotas otimizadas, monitoramento em tempo real e recompensas.
+Junte-se à Reciclaê e ajude a tornar as cidades mais limpas e sustentáveis.
+</p>
+</div>
+
+
+{/* Imagem - Placeholder */}
+<div className="w-full h-[350px] bg-gray-300 rounded-lg flex items-center justify-center text-gray-700 text-lg font-medium">
+  <img src={sobreimage} alt="Sobre Nós" className="w-full h-full object-cover" />
+</div>
+</div>
+</div>
+)
 }
+
