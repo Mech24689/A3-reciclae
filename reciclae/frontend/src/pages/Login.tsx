@@ -3,7 +3,7 @@ import PageTitle from '../components/layout/PageTitle'
 import Section from '../components/layout/Section'
 
 // Importe o SEU ARQUIVO CSS
-import '../styles/Login.css'; 
+// import '../styles/Login.css'; 
 
 export default function Login() {
   const [login, setLogin] = useState('')
