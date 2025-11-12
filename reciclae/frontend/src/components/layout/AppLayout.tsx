@@ -5,6 +5,7 @@ import Home from "../../pages/Home";
 import About from "../../pages/About";
 import PontosDeColeta from "../../pages/PontosDeColeta"; 
 import CadastroVeiculo from "../../pages/CadastroVeiculo";
+import CadastroUser from "../../pages/CadastroUser";
 
 // 1. Definição das Propriedades (Props)
 interface AppLayoutProps {
@@ -32,7 +33,11 @@ export default function AppLayout({
       NavbarComponent = <PontosDeColeta/>;
     } else if (currentPath === '/cadastro-veiculo') {
       NavbarComponent = <CadastroVeiculo/>;
-    } else {
+    }
+    else if (currentPath === '/cadastro-user') {
+      NavbarComponent = <CadastroUser/>;
+    }
+    else {
       NavbarComponent = <Home />; 
     }
   
