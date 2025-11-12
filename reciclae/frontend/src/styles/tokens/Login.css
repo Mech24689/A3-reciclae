@@ -1,0 +1,78 @@
+/* Login.css */
+
+/*
+  Este é o wrapper que cobre a tela inteira.
+  Ele define o fundo escuro e centraliza a caixa de login.
+*/
+.login-page-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 90vh; /* Garante que ocupe a altura da tela */
+  background-color: #333333; /* O fundo cinza-escuro da imagem */
+  /* Se o <Section> adicionar padding, talvez você precise ajustar isso */
+}
+
+/* Esta é a caixa de login verde-claro */
+.login-form-box {
+  background-color: #c9e2c9; /* Tom de verde-claro da imagem */
+  padding: 2.5rem 2rem;
+  border-radius: 8px; /* Cantos levemente arredondados */
+  width: 100%;
+  max-width: 400px; /* Define uma largura máxima para a caixa */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Organiza o formulário internamente */
+.login-form-box form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form-box label {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: #222;
+  font-family: Arial, sans-serif; /* Uma fonte limpa */
+}
+
+/* Estilo dos campos de input */
+.login-form-box input {
+  padding: 0.9rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 1.25rem; /* Espaço entre os inputs */
+  font-size: 1rem;
+  background-color: #ffffff; /* Fundo branco como na imagem */
+}
+
+.login-form-box input::placeholder {
+  color: #aaa;
+}
+
+/* O botão "Entrar" */
+.btn-entrar {
+  background-color: #444; /* Cinza escuro do botão */
+  color: white;
+  padding: 0.9rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  transition: background-color 0.2s;
+}
+
+.btn-entrar:hover {
+  background-color: #555;
+}
+
+/* O link "Esqueceu a senha?" */
+.forgot-password {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: #333;
+  text-decoration: underline;
+}

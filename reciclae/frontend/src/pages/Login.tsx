@@ -1,24 +1,53 @@
-//import React from 'react'
+import React, { useState } from 'react'
 import PageTitle from '../components/layout/PageTitle'
 import Section from '../components/layout/Section'
-import DetailView from '../components/data-display/DetailView'
-import Skeleton from '../components/loading/Skeleton'
-import EmptyState from '../components/empty/EmptyState'
+
+// Importe o SEU ARQUIVO CSS
+import '../styles/Login.css'; 
 
 export default function Login() {
+  const [login, setLogin] = useState('')
+  const [senha, setSenha] = useState('')
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log('Tentativa de Login:', { login, senha })
+    alert('Verificando credenciais... (olhe o console!)')
+  }
+
   return (
-    <>
-      <PageTitle subtitle="Componentes básicos com CSS puro.">Login</PageTitle>
-      <Section title="Detail View">
-        <DetailView title="Item demonstrativo">
-          <p className="muted">Campos e textos de exemplo para o detalhe.</p>
-        </DetailView>
-      </Section>
-      <Section title="Skeleton / Empty State">
-        <Skeleton>
-          <EmptyState>Carregue dados para visualizar conteúdo.</EmptyState>
-        </Skeleton>
-      </Section>
-    </>
+    <Section>
+      <div className="login-page-wrapper">
+        <div className="login-form-box">
+          <form onSubmit={handleSubmit}>
+            <label htmlFor="login">Login</label>
+            <input
+              type="text"
+              id="login"
+              placeholder="Digite seu login"
+              value={login}
+              onChange={(e) => setLogin(e.target.value)}
+            />
+
+            <label htmlFor="senha">Senha</label>
+            <input
+              type="password"
+              id="senha"
+              placeholder="Digite sua senha"
+              value={senha}
+              onChange={(e) => setSenha(e.target.value)}
+            />
+
+            <button type="submit" className="btn-entrar">
+              Entrar
+            </button>
+
+            <a href="#" className="forgot-password">
+              Esqueceu a senha?
+            </a>
+          </form>
+        </div>
+      </div>
+    </Section>
   )
 }

@@ -1,50 +1,17 @@
-// //import React from 'react'
-// import PageTitle from '../components/layout/PageTitle'
-// import Section from '../components/layout/Section'
-// import DetailView from '../components/data-display/DetailView'
-// import Skeleton from '../components/loading/Skeleton'
-// import EmptyState from '../components/empty/EmptyState'
 
-// export default function CadastroUser() {
-//   return (
-//     <>
-//       <div>teste</div>
-//     </>
-//   )
-// }
-
-// //import React from 'react'
-// import PageTitle from '../components/layout/PageTitle'
-// import Section from '../components/layout/Section'
-// import DetailView from '../components/data-display/DetailView'
-// import Skeleton from '../components/loading/Skeleton'
-// import EmptyState from '../components/empty/EmptyState'
-
-// export default function CadastroUser() {
-//   return (
-//     <>
-//       <div>teste123
-      
-//       </div>
-//     </>
-//   )
-// }
 import React, { useState } from 'react'
 import PageTitle from '../components/layout/PageTitle'
 import Section from '../components/layout/Section'
-
-// Importe o arquivo CSS que criaremos abaixo
-// import './CadastroUser.css'
-import '../styles/teste.css';
-
-// Seus outros imports (DetailView, Skeleton, etc.) 
-// não são necessários para este formulário específico.
+import '../styles/cadastrouser.css';
+import type EsqueceuaSenha from './EsqueceuaSenha';
 
 export default function CadastroUser() {
   // State para guardar os dados do formulário
   const [formData, setFormData] = useState({
     nome: '',
     email: '',
+    senha: '',
+    confirmarSenha: '',
     cpf: '',
     endereco: '',
     telefone: '',
@@ -72,6 +39,7 @@ export default function CadastroUser() {
 
   return (
     <>
+
       {/* Usando seu componente PageTitle para o título */}
       <PageTitle title="Cadastrar Usuário" />
 
@@ -104,6 +72,33 @@ export default function CadastroUser() {
                 onChange={handleChange}
               />
             </div>
+
+          {/* SENHA */}
+            <div className="form-group">
+              <label htmlFor="cpf">Senha:</label>
+              <input
+                type="text"
+                id="cpf"
+                name="cpf"
+                value={formData.senha}
+                onChange={handleChange}
+              />
+            </div>
+
+          {/* CONFIRME SUA SENHA */}
+            <div className="form-group">
+              <label htmlFor="cpf">Confirmar Senha:</label>
+              <input
+                type="text"
+                id="cpf"
+                name="cpf"
+                value={formData.senha}
+                onChange={handleChange}
+              />
+            </div>
+
+
+
 
             {/* CPF */}
             <div className="form-group">
@@ -186,7 +181,15 @@ export default function CadastroUser() {
               <button type="button" className="btn-secondary">CADASTRAR VEICULO</button>
             </div>
 
-          </form>
+          </form> 
+     
+     <footer className="footer">
+      <div className="container footer-inner">
+        <small>© 2025 — Reciclae.</small>
+      </div>
+       </footer>
+      
+           
         </div>
       </Section>
     </>
