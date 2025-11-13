@@ -46,15 +46,16 @@ export async function loginUsuario(req: Request, res: Response): Promise<void> {
     }
 
     try {
-        console.log("login:", login);
+        console.log("linha 49: login:", login);
         const usuarioDB = await usuarioService.getUsuarioByLogin(login);
-        console.log("usuarioDB:", usuarioDB);
+        console.log("linha 51: usuarioDB:", usuarioDB);
         
         if (!usuarioDB) {
             res.status(401).json({ message: 'Credenciais inválidas.' });
             return;
         }
 
+        
         // Verifica a senha
         const senhaValida = await usuarioService.verifyPassword(senha, usuarioDB.senha);
 
@@ -70,7 +71,7 @@ export async function loginUsuario(req: Request, res: Response): Promise<void> {
             res.status(401).json({ message: 'Credenciais inválidas.' });
         }
     } catch (error) {
-        console.error('Erro durante o login:', error);
+        console.error('73: Erro durante o login:', error);
         res.status(500).json({ message: 'Erro interno do servidor.' });
     }
 }
