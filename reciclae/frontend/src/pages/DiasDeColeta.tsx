@@ -16,7 +16,7 @@ export default function DiasDeColeta() {
       </Section>
       <Section title="Skeleton / Empty State">
         <Skeleton>
-          <EmptyState>Carregue dados para visualizar conteúdo.</EmptyState>
+          <EmptyState>INICIANDO PROEJETO</EmptyState>
         </Skeleton>
       </Section>
     </>

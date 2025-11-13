@@ -29,6 +29,7 @@
     "dotenv": "^16.3.1",
     "express": "^4.21.2",
     "knex": "^3.0.1",
+    "nodemon": "^3.1.11",
     "pg": "^8.11.3",
     "react-router-dom": "^7.9.5",
     "swagger-ui-react": "^5.30.2",
