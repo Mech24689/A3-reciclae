@@ -2,17 +2,12 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Para redirecionar após o login
 import { login } from '../services/authService'; // A função que chama sua API
 
-<<<<<<< HEAD
-// Importe o SEU ARQUIVO CSS
-import '../styles/Login.css'; 
-=======
 // Simulação de um Hook de Estado para o usuário logado (usaremos depois)
 interface UserAuth {
     token: string;
     username: string;
     role: string;
 }
->>>>>>> 714cda31526f514dff36a1d0242d76ab1770239d
 
 const LoginScreen: React.FC = () => {
     const [username, setUsername] = useState('');
@@ -21,6 +16,8 @@ const LoginScreen: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
 
     const navigate = useNavigate();
+
+    console.log("Teste ");
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();

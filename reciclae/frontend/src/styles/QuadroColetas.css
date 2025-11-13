@@ -1,0 +1,86 @@
+
+/* Container Principal*/
+.container-coletas {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px;
+    background-color: #D3EAD3; /* Fundo do Quadro */
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+}
+
+.quadro-principal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.titulo-coletas {
+    font-size: 1.8em;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* grid calendario */
+.quadro-calendario {
+    display: grid;
+    /* 7 colunas (dias da semana) */
+    grid-template-columns: repeat(7, 100px); 
+    border-top: 2px solid black;
+    border-left: 2px solid black;
+}
+
+.celula-cabecalho, .celula-calendario {
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    padding: 10px;
+    text-align: center;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: black;
+    box-sizing: border-box; 
+    cursor: pointer;
+    transition: 700ms;
+}
+
+.celula-calendario:hover {
+    transform: scale(1.3);
+}
+
+
+.celula-cabecalho {
+    background-color: #B0E0B0; 
+    font-weight: bold;
+    border-bottom: 2px solid black; 
+}
+
+
+.legenda {
+    padding-top: 60px; 
+    font-size: 1em;
+}
+
+.item-legenda {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.cor-box {
+    width: 20px;
+    height: 20px;
+    border: 1px solid black;
+    margin-right: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.celula-vazia {
+    background-color: #E0E0E0 !important;
+}

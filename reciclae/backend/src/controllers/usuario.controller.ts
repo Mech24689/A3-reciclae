@@ -37,6 +37,7 @@ export async function registerUsuario(req: Request, res: Response): Promise<void
 // Rota: POST /usuarios/login (EXEMPLO SIMPLES DE AUTENTICAÇÃO)
 // -------------------------------------------------------------------------
 export async function loginUsuario(req: Request, res: Response): Promise<void> {
+    console.log("Dados de login recebidos:", req.body);
     const { login, senha } = req.body;
 
     if (!login || !senha) {
@@ -45,13 +46,16 @@ export async function loginUsuario(req: Request, res: Response): Promise<void> {
     }
 
     try {
+        console.log("linha 49: login:", login);
         const usuarioDB = await usuarioService.getUsuarioByLogin(login);
-
+        console.log("linha 51: usuarioDB:", usuarioDB);
+        
         if (!usuarioDB) {
             res.status(401).json({ message: 'Credenciais inválidas.' });
             return;
         }
 
+        
         // Verifica a senha
         const senhaValida = await usuarioService.verifyPassword(senha, usuarioDB.senha);
 
@@ -67,7 +71,7 @@ export async function loginUsuario(req: Request, res: Response): Promise<void> {
             res.status(401).json({ message: 'Credenciais inválidas.' });
         }
     } catch (error) {
-        console.error('Erro durante o login:', error);
+        console.error('73: Erro durante o login:', error);
         res.status(500).json({ message: 'Erro interno do servidor.' });
     }
 }
