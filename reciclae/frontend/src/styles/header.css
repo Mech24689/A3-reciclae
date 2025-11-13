@@ -44,6 +44,7 @@
 
 .btn-header-link{
     color: var(--black);
+    cursor: pointer;
 }
 
 .btn-login-cadastro{
@@ -58,11 +59,13 @@
 .btn-login{
     background-color: #2B6CB0;
     color: var(--white);
+    cursor: pointer;
 }
 
 .btn-cadastro{
     background-color: #F6AD55;
     color: var(--black);
+    cursor: pointer;
 }
 
 /* appLayout */
