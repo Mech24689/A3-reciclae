@@ -1,0 +1,64 @@
+/* * Este é o NOVO container que vamos adicionar no JSX.
+ * Ele vai "crescer" para ocupar o espaço vazio abaixo do seu menu
+ * e centralizar o formulário dentro dele.
+*/
+.forgot-password-wrapper {
+    flex-grow: 1; /* A mágica: faz ele ocupar o espaço vertical sobrando */
+    width: 100%;
+    
+    /* Agora ele centraliza seu próprio conteúdo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px; /* Espaçamento para telas pequenas */
+    box-sizing: border-box;
+}
+
+/* * Este é o seu container antigo.
+ * Note que ele não precisa de 'padding' agora, 
+ * pois o 'wrapper' já cuida disso.
+*/
+.forgot-password-container {
+    width: 100%;
+    max-width: 400px; /* Define uma largura máxima */
+    box-sizing: border-box;
+}
+
+/* Título "Esqueceu a senha" (Sem mudança) */
+h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+/* O campo de input (Sem mudança) */
+input[type="email"] {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+/* O botão de "Solicitar senha" (Sem mudança) */
+button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    background-color: #333333;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Efeito hover no botão (Sem mudança) */
+button:hover {
+    background-color: #555555;
+}

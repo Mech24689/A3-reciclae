@@ -15,12 +15,12 @@
 
 /* Esta é a caixa de login verde-claro */
 .login-form-box {
-  background-color: #c9e2c9; /* Tom de verde-claro da imagem */
+  background-color: #69ad69; /* Tom de verde-claro da imagem */
   padding: 2.5rem 2rem;
   border-radius: 8px; /* Cantos levemente arredondados */
   width: 100%;
   max-width: 400px; /* Define uma largura máxima para a caixa */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  
 }
 
 /* Organiza o formulário internamente */
