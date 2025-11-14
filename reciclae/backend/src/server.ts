@@ -16,15 +16,13 @@ const PORT = process.env.PORT || 3000;
 // Em produção, você deve restringir as origens (origins) permitidas.
 app.use(cors({
     origin: "*",
-    methods: [
-      "GET",
-      "POST",
-      "PUT",
-      "PATCH",
-      "DELETE",
-      "OPTIONS",
+    methods: ["GET","POST","PUT", "PATCH","DELETE"],
+
+    allowedHeaders: [
+        'Content-Type', 
+        'Authorization' // ESSENCIAL para rotas autenticadas
     ],
-    allowedHeaders: ["Content-Type"],
+    
   }));
 
 // Body Parser: Para receber JSON no corpo das requisições
@@ -52,8 +50,6 @@ app.listen(PORT, () => {
     console.log(`🚀 Servidor Express rodando em http://localhost:${PORT}`);
     console.log(`Ambiente: ${process.env.NODE_ENV || 'development'}`);
 });
-
-
 
 
 export default app; // EXPORTE A INSTÂNCIA DO APP AQUI!

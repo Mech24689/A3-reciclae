@@ -9,18 +9,30 @@ export default function NavBarLogado() {
     navigate('/sobre-nos'); // Rota de destino para Cadastro
   }
 
-  const handlePontoColetaClick = () => {
+  const handleDiasColetaClick = () => {
+    navigate('/dias-coleta'); // Rota de destino para Cadastro
+  }
+
+  const handlePontosColetaClick = () => {
     navigate('/pontos-coleta'); // Rota de destino para Cadastro
+  }
+
+  const handleCadastroVeiculoClick = () => {
+    navigate('/cadastro-veiculo'); // Rota de destino para Cadastro
+  }
+
+  const handleContatoClick = () => {
+    navigate('/cadastro'); // Rota de destino para Cadastro
   }
 
   return (
     <nav className='btn-header'>
       <ul>
         <li className='btn-header-link' onClick={handleAboutClick}>Sobre nós</li>
-        <li className='btn-header-link'>Dias de coleta</li>
-        <li className='btn-header-link' onClick={handlePontoColetaClick}>Pontos de coleta</li>
-        <li className='btn-header-link'>Cadastrar Veículo</li>
-        <li className='btn-header-link'>Contato</li>
+        <li className='btn-header-link' onClick={handleDiasColetaClick}>Dias de coleta</li>
+        <li className='btn-header-link' onClick={handlePontosColetaClick}>Pontos de coleta</li>
+        <li className='btn-header-link' onClick={handleCadastroVeiculoClick}>Cadastrar Veículo</li>
+        <li className='btn-header-link' onClick={handleContatoClick}>Contato</li>
       </ul>
     </nav>
   )

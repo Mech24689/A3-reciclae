@@ -17,6 +17,8 @@ const LoginScreen: React.FC = () => {
 
     const navigate = useNavigate();
 
+    console.log("Teste ");
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError(null);
