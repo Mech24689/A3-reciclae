@@ -1,5 +1,15 @@
 .divH1 {
     width: 100%;
     display: flex;
-    justify-content: start
+    justify-content: start;
+}
+
+body{
+    background-color: #B8DBB8;
+}
+
+.area{
+    margin-right: 10%;
+    text-align: justify;
+    font-weight: bold
 }

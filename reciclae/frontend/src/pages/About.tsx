@@ -16,9 +16,8 @@ export default function About() {
 
 
 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10 items-start">
-{/* Texto */}
-<div className="space-y-6 text-justify leading-relaxed text-[1.05rem]">
-,<div className= "divH1">
+<div className="space-y-6 text-justify leading-relaxed text-[1.05rem] area">
+<div className= "divH1">
 <h1>Sobre Nós</h1>
 </div>
 

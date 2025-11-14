@@ -9,6 +9,7 @@ import CadastroUser from "../../pages/CadastroUser";
 import Login from "../../pages/Login";
 import EsqueceuaSenha from "../../pages/EsqueceuaSenha";
 import TermosUso from "../../pages/Termos";
+import '../../styles/Login.css'; 
 // 1. Definição das Propriedades (Props)
 interface AppLayoutProps {
   children: React.ReactNode;
