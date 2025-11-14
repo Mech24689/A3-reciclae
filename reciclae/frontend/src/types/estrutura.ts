@@ -41,3 +41,25 @@ export interface RegistrationData {
     };
 }
     
+// src/types/estrutura.ts (Exemplo)
+
+export interface VeiculoData {
+    pessoa_id: number; // ID da pessoa logada
+    marca: string;
+    modelo: string;
+    placa: string;
+    ano: number;
+    cor: string;
+    tipo_veiculo: 'CARRO' | 'MOTO' | 'CAMINHAO'; 
+}
+
+export interface VeiculoResponse {
+    id: number;
+    placa: string;
+    marca: string;
+    modelo: string;
+    ano: number;
+    cor: string;
+    tipo_veiculo: 'CARRO' | 'MOTO' | 'CAMINHAO'; 
+    
+}
