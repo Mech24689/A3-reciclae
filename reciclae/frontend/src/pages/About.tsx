@@ -9,8 +9,9 @@ import "../styles/About.css";
 
 export default function About() {
   return (
+
 <div className="min-h-screen bg-[#d2edc9] flex justify-center items-start py-10">
-  <div className="max-w-6xl w-full px-6">
+  <div className="max-w-6xl w-full px-6"> 
 
 
 
@@ -26,12 +27,12 @@ Somos uma startup tecnológica e inovadora dedicada à sustentabilidade e à ges
 Conectamos cidadãos, empresas e prefeituras por meio de mapas interativos, alertas personalizados e logística otimizada
 para o descarte correto.
 </p>
-
+<br/>
 <p>
 Inspirados pelo movimento Zero Waste, transformamos consciência ambiental em ação com soluções como desafios sustentáveis,
 relatórios de impacto e validação de coletas via QR code, incentivando hábitos responsáveis e engajamento coletivo.
 </p>
-
+<br/>
 
 <p>
 Com foco em inovação, inclusão e transparência, oferecemos uma plataforma intuitiva e segura. Entre nossos diferenciais estão

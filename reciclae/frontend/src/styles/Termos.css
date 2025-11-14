@@ -1,0 +1,38 @@
+/* Botão */
+.termos_botao {
+  width: 40%;
+  background: white;
+  color: black;
+  font-weight: 600;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  margin-top: 15px;
+}
+
+.termos_botao:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 10px rgba(0,0,0,0.18);
+}
+
+.termos_botao:active {
+  transform: translateY(0px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.12);
+}
+
+.divBotao {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+
+}
+.mb-6 {
+    margin-top: 10px;
+}
+
+.divp1Termos {
+    margin-bottom: 10px;
+}
