@@ -1,53 +1,60 @@
 // src/store/authStore.ts
 
 import { create } from 'zustand';
-import { type AuthResponse } from '../types/estrutura'; // O tipo de resposta da sua API
+
+// Defina a estrutura dos dados que você recebe do backend
+interface UserProfile {
+    id: number;
+    username: string;
+    role: string;
+    prefeituraId: number;
+    // Adicione outros campos importantes
+}
 
 interface AuthState {
     isAuthenticated: boolean;
-    user: AuthResponse['user'] | null;
+    user: UserProfile | null;
     token: string | null;
     
-    // Ações (Funções para modificar o estado)
-    login: (authData: AuthResponse) => void;
+    // Funções de manipulação de estado
+    login: (token: string, user: UserProfile) => void;
     logout: () => void;
-    initialize: () => void; // Para carregar o estado ao iniciar o app
+    initialize: () => void; // Para verificar o localStorage
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
+    // Estados Iniciais
     isAuthenticated: false,
     user: null,
     token: null,
 
-    // Função que armazena os dados do login
-    login: (authData) => {
-        // Armazena no localStorage (persistência)
-        localStorage.setItem('authToken', authData.token);
-        
-        // Atualiza o estado global
+    // Função de Login: Salva o token no localStorage e no estado
+    login: (token, user) => {
+        localStorage.setItem('authToken', token);
+        // Você também pode salvar o usuário se ele for pequeno:
+        // localStorage.setItem('user', JSON.stringify(user)); 
         set({
             isAuthenticated: true,
-            user: authData.user,
-            token: authData.token,
+            user: user,
+            token: token,
         });
     },
 
-    // Função para logout
+    // Função de Logout: Remove o token e reseta o estado
     logout: () => {
         localStorage.removeItem('authToken');
+        // localStorage.removeItem('user'); 
         set({ isAuthenticated: false, user: null, token: null });
     },
     
-    // Função para carregar o token ao carregar o aplicativo
+    // Inicialização: Verifica o localStorage
     initialize: () => {
-        const token = localStorage.getItem('authToken');
+        const storedToken = localStorage.getItem('authToken');
         
-        if (token) {
-            // Em uma aplicação real, aqui você faria uma chamada para /me 
-            // ou decodificaria o token para verificar se ele é válido e não expirou.
-            
-            // Por enquanto, apenas o token
-            set({ isAuthenticated: true, token });
+        if (storedToken) {
+            // Em um app real, você faria uma chamada para validar o token.
+            // Aqui, apenas marcamos como autenticado se o token existir.
+            set({ isAuthenticated: true, token: storedToken });
         }
     }
 }));
