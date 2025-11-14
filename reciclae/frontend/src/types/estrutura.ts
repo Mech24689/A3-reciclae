@@ -24,8 +24,12 @@ export interface RegistrationData {
         nome: string;
         cpf_cnpj: string;
         tipo_pessoa: 'CIDADAO' | 'FUNCIONARIO' | 'COOPERATIVA';
+        data_nasc?: Date | null;
         email: string;
-        // ... outros campos de pessoa
+        telefone: string;
+        enderecos: string | null; 
+        sexo?: string | null; 
+        termos: string;
     };
     usuario: {
         username: string;
@@ -33,3 +37,4 @@ export interface RegistrationData {
         role: UserRole;
     };
 }
+    
