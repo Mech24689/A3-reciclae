@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Para redirecionar após o login
 import { login } from '../services/authService'; // A função que chama sua API
+import { useAuthStore } from '../store/authStore';
 import '../styles/login.css';
 
 // Importe o SEU ARQUIVO CSS
@@ -14,6 +15,8 @@ const LoginScreen: React.FC = () => {
 
     const navigate = useNavigate();
 
+    const authLogin = useAuthStore((state) => state.login);
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError(null);
@@ -23,20 +26,10 @@ const LoginScreen: React.FC = () => {
             // 1. Chamada à API
             const authData = await login({ username, senha });
             
-            // 2. Gerenciamento do Estado (Validação)
-            // Salvar o Token no Storage para uso futuro
-            localStorage.setItem('authToken', authData.token);
-            
+            authLogin(authData.token, authData.user);
 
-            //useAuthStore.getState().login(authData); // <--- Armazena no estado global!
-
-            // Você pode querer salvar os dados do usuário em um gerenciador de estado global (Zustand/Redux)
-            // Exemplo (A ser implementado): useAuthStore.setState({ user: authData.user, isAuthenticated: true });
             console.log("Token recebido:", authData);
-            //console.log("Login validado com sucesso! Usuário:", authData.user.login);
             
-            // 3. Redirecionamento
-            // Redireciona para a tela inicial ou dashboard do usuário
             navigate('/About'); 
 
         } catch (err: any) {

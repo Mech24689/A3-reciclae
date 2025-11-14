@@ -9,6 +9,7 @@ export interface AuthResponse {
         role: UserRole;
         pessoaId: number;
         prefeituraId: number;
+        pessoa_id: number;
     };
 }
 
