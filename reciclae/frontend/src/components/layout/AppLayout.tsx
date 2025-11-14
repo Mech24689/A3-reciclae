@@ -7,6 +7,7 @@ import PontosDeColeta from "../../pages/PontosDeColeta";
 import CadastroVeiculo from "../../pages/CadastroVeiculo";
 import CadastroUser from "../../pages/CadastroUser";
 import Login from "../../pages/Login";
+import QuadroColetas from "../data-display/QuadroColetas";
 
 // 1. Definição das Propriedades (Props)
 interface AppLayoutProps {
@@ -34,6 +35,8 @@ export default function AppLayout({
       NavbarComponent = <PontosDeColeta/>;
     } else if (currentPath === '/cadastro-veiculo') {
       NavbarComponent = <CadastroVeiculo/>;
+       } else if (currentPath === '/DiasDeColeta') {
+      NavbarComponent = <QuadroColetas/>;
     }
     else if (currentPath === '/cadastro-user') {
       NavbarComponent = <CadastroUser/>;

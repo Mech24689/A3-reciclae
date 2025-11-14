@@ -10,7 +10,7 @@ export default function NavBarLogado() {
   }
 
   const handleDiasColetaClick = () => {
-    navigate('/dias-coleta'); // Rota de destino para Cadastro
+    navigate('/DiasDeColeta'); // Rota de destino para Cadastro
   }
 
   const handlePontosColetaClick = () => {
