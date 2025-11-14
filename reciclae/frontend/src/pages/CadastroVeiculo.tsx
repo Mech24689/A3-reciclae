@@ -8,7 +8,7 @@ export default function CadastroVeiculo() {
   return (
     <>
       <div>
-        Teste Veiculo
+        Teste Veiculo.
       </div>
     </>
   )
