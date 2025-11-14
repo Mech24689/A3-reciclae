@@ -3,12 +3,8 @@ import { useNavigate } from 'react-router-dom'; // Para redirecionar após o log
 import { login } from '../services/authService'; // A função que chama sua API
 import '../styles/login.css';
 
-// Simulação de um Hook de Estado para o usuário logado (usaremos depois)
-interface UserAuth {
-    token: string;
-    username: string;
-    role: string;
-}
+// Importe o SEU ARQUIVO CSS
+import '../styles/Login.css'; 
 
 const LoginScreen: React.FC = () => {
     const [username, setUsername] = useState('');

@@ -7,7 +7,8 @@ import PontosDeColeta from "../../pages/PontosDeColeta";
 import CadastroVeiculo from "../../pages/CadastroVeiculo";
 import CadastroUser from "../../pages/CadastroUser";
 import Login from "../../pages/Login";
-
+import EsqueceuaSenha from "../../pages/EsqueceuaSenha";
+import TermosUso from "../../pages/Termos";
 // 1. Definição das Propriedades (Props)
 interface AppLayoutProps {
   children: React.ReactNode;
@@ -34,12 +35,17 @@ export default function AppLayout({
       NavbarComponent = <PontosDeColeta/>;
     } else if (currentPath === '/cadastro-veiculo') {
       NavbarComponent = <CadastroVeiculo/>;
+       } else if (currentPath === '/termosuso') {
+      NavbarComponent = <TermosUso/>;
     }
     else if (currentPath === '/cadastro-user') {
       NavbarComponent = <CadastroUser/>;
        }
     else if (currentPath === '/login') {
       NavbarComponent = <Login/>;
+
+     } else if (currentPath === '/esqueceu-a-senha') {
+      NavbarComponent = <EsqueceuaSenha/>;
     }
     else {
       NavbarComponent = <Home />; 
