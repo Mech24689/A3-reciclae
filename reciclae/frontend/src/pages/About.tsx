@@ -5,17 +5,21 @@ import DetailView from '../components/data-display/DetailView'
 import Skeleton from '../components/loading/Skeleton'
 import EmptyState from '../components/empty/EmptyState'
 import sobreimage from '../assets/Reciclae_Sobrenos.png'
+import "../styles/About.css";
 
 export default function About() {
   return (
 <div className="min-h-screen bg-[#d2edc9] flex justify-center items-start py-10">
   <div className="max-w-6xl w-full px-6">
-<PageTitle>Sobre Nós</PageTitle>
+
 
 
 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10 items-start">
 {/* Texto */}
 <div className="space-y-6 text-justify leading-relaxed text-[1.05rem]">
+,<div className= "divH1">
+<h1>Sobre Nós</h1>
+</div>
 
 <p>
 Somos uma startup tecnológica e inovadora dedicada à sustentabilidade e à gestão eficiente de resíduos recicláveis.

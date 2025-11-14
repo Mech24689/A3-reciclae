@@ -4,7 +4,7 @@ import DetailView from '../components/data-display/DetailView'
 import Skeleton from '../components/loading/Skeleton'
 import EmptyState from '../components/empty/EmptyState'
 
-export default function Termos() {
+export default function termos() {
   return (
     <>
       <div>
