@@ -35,6 +35,8 @@ export interface RegistrationData {
         username: string;
         senha_texto_puro: string;
         role: UserRole;
+        prefeitura_id: number;
+        
     };
 }
     

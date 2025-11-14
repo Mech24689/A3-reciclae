@@ -34,6 +34,10 @@ export async function login(data: LoginData): Promise<AuthResponse> {
  */
 export async function register(data: RegistrationData): Promise<void> {
   try {
+
+    console.log("Enviando dados para registro:", data);
+    console.log("AUTH_URLS.REGISTER:", AUTH_URLS.REGISTER);
+
     await api.post(AUTH_URLS.REGISTER, data);
     
   } catch (error) {

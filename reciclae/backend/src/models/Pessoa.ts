@@ -1,5 +1,7 @@
 // src/models/Pessoa.ts
 
+import { s } from "vite/dist/node/chunks/moduleRunnerTransport";
+
 /**
  * Interface que representa a estrutura completa de dados da tabela 'Pessoa'.
  */
@@ -14,6 +16,9 @@ export interface Pessoa {
     sexo: 'M' | 'F' | 'O' | null; // CHAR(1) com possíveis valores
     copia_cnh_rg: Buffer | null; // BYTEA no DB é representado como Buffer no Node.js/pg
     prefeitura_id: number | null; // FOREIGN KEY (Permitindo NULL caso a pessoa não esteja vinculada a uma prefeitura específica inicialmente)
+    tipo_pessoa : 'CIDADAO' | 'FUNCIONARIO' | 'COOPERATIVA'; // Tipo da pessoa
+    termos : string | null; // Texto dos termos aceitos pela pessoa
+
 }
 
 /**

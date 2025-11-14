@@ -10,6 +10,7 @@ import { Pessoa, PessoaCreate, PessoaUpdate, PessoaComPrefeitura } from '../mode
 // 1. CREATE (Criar uma nova Pessoa)
 export async function createPessoa(data: PessoaCreate): Promise<Pessoa> {
   try {
+    console.log('[createPessoa] Criando nova pessoa com dados:', data);
     const [novaPessoa] = await knex(Tabela.PESSOA)
       .insert(data)
       .returning('*');
@@ -17,6 +18,7 @@ export async function createPessoa(data: PessoaCreate): Promise<Pessoa> {
     return novaPessoa as Pessoa;
   } catch (err) {
     console.error('Erro ao criar pessoa (Knex):', err);
+    console.log('Erro ao criar pessoa (Knex):', err);
     throw err;
   }
 }

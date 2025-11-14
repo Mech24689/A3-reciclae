@@ -11,10 +11,12 @@ export type TipoUsuario =  'CIDADAO' | 'FUNCIONARIO' | 'GESTOR';
  */
 export interface Usuario {
     id: number;
-    tipo: TipoUsuario; // NOT NULL
+    role: TipoUsuario; // NOT NULL
+    username: string;
     login: string; // UNIQUE e NOT NULL
     senha: string; // Armazena o HASH da senha (e não a senha em texto puro)
     prefeitura_id: number; // FOREIGN KEY, NOT NULL
+    pessoa_id: number; // FOREIGN KEY, NOT NULL
 }
 
 /**
@@ -22,10 +24,13 @@ export interface Usuario {
  * Para a criação, o campo senha é a senha em texto puro ANTES do hashing.
  */
 export interface UsuarioCreate {
-    tipo: TipoUsuario;
+    username: string;
+    role: TipoUsuario;
     login: string;
     senha_texto_puro: string; // Campo para receber a senha antes do hash
     prefeitura_id: number;
+    pessoa_id: number; 
+ 
 }
 
 /**

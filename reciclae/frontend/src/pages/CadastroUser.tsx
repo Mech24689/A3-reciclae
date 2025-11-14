@@ -1,183 +1,330 @@
-import React, { useState } from 'react'
-import PageTitle from '../components/layout/PageTitle'
-import Section from '../components/layout/Section'
+import React, { useState } from 'react';
+import PageTitle from '../components/layout/PageTitle';
+import Section from '../components/layout/Section';
 import { useNavigate } from 'react-router-dom';
 import { register } from '../services/authService';
 import { type RegistrationData, type UserRole } from '../types/estrutura';
 
 import '../styles/cadastrouser.css';
+// Importe seu CSS para modal aqui (ex: import '../styles/modal.css')
 
-import type EsqueceuaSenha from './EsqueceuaSenha';
+// -------------------------------------------------------------------------
+// FUNÇÕES DE FORMATAÇÃO (MÁSCARAS) - Mantidas
+// -------------------------------------------------------------------------
+
+/** Remove caracteres não-numéricos e aplica a máscara de CPF (11 dígitos) ou CNPJ (14 dígitos). */
+const formatCpfCnpj = (value: string): string => {
+    const cleaned = value.replace(/\D/g, ''); 
+    if (cleaned.length <= 11) {
+        return cleaned
+            .replace(/(\d{3})(\d)/, '$1.$2')
+            .replace(/(\d{3})(\d)/, '$1.$2')
+            .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+    } else {
+        return cleaned
+            .replace(/^(\d{2})(\d)/, '$1.$2')
+            .replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3')
+            .replace(/\.(\d{3})(\d)/, '.$1/$2')
+            .replace(/(\d{4})(\d)/, '$1-$2');
+    }
+};
+
+/** Remove caracteres não-numéricos e aplica a máscara de Telefone/Celular. */
+const formatTelefone = (value: string): string => {
+    const cleaned = value.replace(/\D/g, '');
+    if (cleaned.length <= 10) {
+        return cleaned
+            .replace(/^(\d{2})(\d)/g, '($1) $2')
+            .replace(/(\d{4})(\d)/, '$1-$2');
+    } else {
+        return cleaned
+            .replace(/^(\d{2})(\d)/g, '($1) $2')
+            .replace(/(\d{5})(\d)/, '$1-$2')
+            .replace(/(\d{4})(\d)/, '$1-$2');
+    }
+};
+
+// -------------------------------------------------------------------------
+// COMPONENTE PRINCIPAL
+// -------------------------------------------------------------------------
+
+export type Sexo = 'MASCULINO' | 'FEMININO' | 'OUTRO' | '';
+
+const OPCOES_SEXO: { value: Sexo; label: string }[] = [
+    { value: '', label: 'Selecione o Sexo' },
+    { value: 'MASCULINO', label: 'Masculino' },
+    { value: 'FEMININO', label: 'Feminino' },
+    { value: 'OUTRO', label: 'Outro' },
+];
 
 const CadastroUser: React.FC = () => {
-  // State para guardar os dados do formulário
-  const [nome, setNome] = useState('');
-  const [email, setEmail] = useState('');
-  const [cpfCnpj, setCpfCnpj] = useState('');
-  const [telefone, setTelefone] = useState('');
-  const [endereco, setEndereco] = useState('');
-  const [dataNascimento, setDataNascimento] = useState('');
-  const [sexo, setSexo] = useState('');
-  const [username, setUsername] = useState('');
-  const [senha, setSenha] = useState('');
-  const [confirmarSenha, setConfirmarSenha] = useState('');
-  const [termos, setTermos] = useState('');
+    const navigate = useNavigate();
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
+    // ESTADOS
+    const [nome, setNome] = useState('');
+    const [email, setEmail] = useState('');
+    const [cpfCnpj, setCpfCnpj] = useState(''); 
+    const [telefone, setTelefone] = useState(''); 
+    const [endereco, setEndereco] = useState('');
+    const [dataNascimento, setDataNascimento] = useState('');
+    const [sexo, setSexo] = useState<Sexo>('');
+    const [senha, setSenha] = useState('');
+    const [confirmarSenha, setConfirmarSenha] = useState('');
+    
+    const [termosAceitos, setTermosAceitos] = useState(false); // Aceitação final
+    const [isModalOpen, setIsModalOpen] = useState(false); // Estado do pop-up
+    
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+    const [success, setSuccess] = useState<string | null>(null);
 
-
-  // Função para atualizar o state quando o usuário digita
-  /*const handleChange = (e) => {
-    const { name, value, type, checked } = e.target
-    setFormData(prevState => ({
-      ...prevState,
-      [name]: type === 'checkbox' ? checked : value
-    }))
-  }*/
-
-  // Função para lidar com o envio do formulário
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    const navigate = useNavigate(); // Você precisa chamar o Hook para definir 'navigate'
-    // Aqui você adicionaria a lógica para enviar os dados para seu backend/API
-    setError(null);
-    setSuccess(null);
-
-    if (senha !== confirmarSenha) {
-      setError('As senhas não coincidem.');
-      return;
-    }
-
-    setIsLoading(true);
-
-    const data: RegistrationData = {
-      pessoa: {
-        prefeitura_id: 1,
-        nome: nome,
-        cpf_cnpj: cpfCnpj,
-        tipo_pessoa: 'CIDADAO',
-        email: email,
-        telefone: telefone,
-        sexo: sexo,
-        data_nasc: dataNascimento ? new Date(dataNascimento) : null,
-        enderecos: endereco,
-        termos: termos,
-
-      },
-      usuario: {
-        username: username,
-        senha_texto_puro: senha, // A API espera 'senha_texto_puro'
-        role: 'CIDADAO',         // Definido como default
-      },
+    // HANDLERS DE FORMATAÇÃO - Mantidos
+    const handleCpfCnpjChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const rawValue = e.target.value;
+        const formattedValue = formatCpfCnpj(rawValue);
+        setCpfCnpj(formattedValue);
     };
-    try {
-      // Chamada ao serviço de registro
-      console.log("Dados para registro:", data);
-      await register(data);
 
-      setSuccess('Cadastro realizado com sucesso! Você será redirecionado para o login.');
-      
-      setTimeout(() => navigate('/login'), 2000);
+    const handleTelefoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const rawValue = e.target.value;
+        const formattedValue = formatTelefone(rawValue);
+        setTelefone(formattedValue);
+    };
 
-    } catch (err: any) {
-      // Captura erros da API (ex: CPF já cadastrado)
-      console.error("Erro no cadastro:", err);
-      setError(err.message || 'Erro ao tentar registrar. Verifique os dados.');
-    } finally {
-      setIsLoading(false);
-    }
+    // -------------------------------------------------------------------------
+    // HANDLERS DO POP-UP
+    // -------------------------------------------------------------------------
 
-  }
+    const handleOpenModal = (e: React.MouseEvent) => {
+        e.preventDefault(); // Impede que o link de termos tente navegar
+        setIsModalOpen(true);
+    };
 
-  return (
-    <>
+    const handleAcceptTerms = () => {
+        setTermosAceitos(true); // Marca como aceito
+        setIsModalOpen(false);  // Fecha o pop-up
+    };
 
-      {/* Usando seu componente PageTitle para o título */}
-      <PageTitle>Cadastro de Usuário</PageTitle>
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+        // Se o usuário fechar sem aceitar, o checkbox permanece como estava
+    };
 
 
-      {/* Usando seu componente Section para agrupar o conteúdo */}
-      <Section>
-        {/* O 'user-form-container' é onde o CSS vai aplicar o estilo do container verde */}
-        <div className="user-form-container">
-          <form onSubmit={handleSubmit}>
+    // FUNÇÃO DE SUBMISSÃO
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
 
-            {/* Nome */}
-            <div className="form-group">
-              <label htmlFor="nome">Nome:</label>
-              <input type="text" id="nome" name="nome" value={nome} onChange={(e) => setNome(e.target.value)} required />
-            </div>
+        setError(null);
+        setSuccess(null);
 
-            {/* E-mail */}
-            <div className="form-group">
-              <label htmlFor="email">E-mail:</label>
-              <input type="email" id="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-            </div>
+        if (senha !== confirmarSenha) {
+            setError('As senhas não coincidem.');
+            return;
+        }
+        if (!termosAceitos) {
+            setError('Você deve aceitar os termos de uso para continuar.');
+            return;
+        }
+        if (sexo === '') {
+             setError('Selecione o campo Sexo.');
+            return;
+        }
 
-            {/* SENHA */}
-            <div className="form-group">
-              <label htmlFor="senha">Senha:</label>
-              <input type="text" id="senha" name="senha" value={senha} onChange={(e) => setSenha(e.target.value)} required />
-            </div>
+        setIsLoading(true);
+        
+        const cpfCnpjLimpo = cpfCnpj.replace(/\D/g, ''); 
+        const telefoneLimpo = telefone.replace(/\D/g, ''); 
 
-            {/* CONFIRME SUA SENHA */}
-            <div className="form-group">
-              <label htmlFor="confirmarSenha">Confirmar Senha:</label>
-              <input type="text" id="confirmarSenha" name="confirmarSenha" value={confirmarSenha} onChange={(e) => setConfirmarSenha(e.target.value)} required />
-            </div>
+        const data: RegistrationData = {
+            pessoa: {
+                prefeitura_id: 1,
+                nome: nome,
+                cpf_cnpj: cpfCnpjLimpo, 
+                tipo_pessoa: 'CIDADAO',
+                email: email,
+                telefone: telefoneLimpo, 
+                sexo: sexo, 
+                data_nasc: dataNascimento || null, 
+                enderecos: endereco,
+                termos: termosAceitos ? 'ACEITO' : 'NAO_ACEITO', 
+            },
+            usuario: {
+                username: email, 
+                senha_texto_puro: senha,
+                role: 'CIDADAO',
+                prefeitura_id: 1,
+            },
+        };
 
-            {/* CPF */}
-            <div className="form-group">
-              <label htmlFor="cpfCnpj">CPF:</label>
-              <input type="text" id="cpfCnpj" name="cpfCnpj" value={cpfCnpj} onChange={(e) => setCpfCnpj(e.target.value)} required />
-            </div>
+        try {
+            await register(data);
 
-            {/* Endereço */}
-            <div className="form-group">
-              <label htmlFor="endereco">Endereço:</label>
-              <input type="text" id="endereco" name="endereco" value={endereco} onChange={(e) => setEndereco(e.target.value)} />
-            </div>
+            setSuccess('Cadastro realizado com sucesso! Você será redirecionado para o login.');
+            setTimeout(() => navigate('/login'), 2000);
 
-            {/* Telefone */}
-            <div className="form-group">
-              <label htmlFor="telefone">Telefone:</label>
-              <input type="text" id="telefone" name="telefone" value={telefone} onChange={(e) => setTelefone(e.target.value)} />
-            </div>
+        } catch (err: any) {
+            console.error("Erro no cadastro:", err);
+            setError(err.message || 'Erro ao tentar registrar. Verifique os dados.');
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
-            {/* Sexo */}
-            <div className="form-group">
-              <label htmlFor="sexo">Sexo:</label>
-              <input type="text" id="sexo" name="sexo" value={sexo} onChange={(e) => setSexo(e.target.value)} />
-            </div>
+    // -------------------------------------------------------------------------
+    // JSX DE RENDERIZAÇÃO
+    // -------------------------------------------------------------------------
+    return (
+        <>
+            <PageTitle>Cadastro de Usuário</PageTitle>
+            <Section>
+                <div className="user-form-container">
+                    <form onSubmit={handleSubmit}>
+                        
+                        {/* Nome */}
+                        <div className="form-group">
+                            <label htmlFor="nome">Nome:</label>
+                            <input type="text" id="nome" name="nome" value={nome} onChange={(e) => setNome(e.target.value)} required />
+                        </div>
 
-            {/* Data de Nascimento */}
-            <div className="form-group">
-              <label htmlFor="dataNascimento">Data de Nascimento:</label>
-              <input type="date" id="dataNascimento" name="dataNascimento" value={dataNascimento} onChange={(e) => setDataNascimento(e.target.value)} />
-            </div>
+                        {/* E-mail (Username) */}
+                        <div className="form-group">
+                            <label htmlFor="email">E-mail:</label>
+                            <input type="email" id="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                        </div>
 
-            {/* Termos e Condições */}
-            <div className="form-group-checkbox">
-              <input type="text" id="termos" name="termos" value={termos} onChange={(e) => setTermos(e.target.value)} required />
-              <label htmlFor="termos">Declaro que li e aceito os termos de uso<a href="/termosuso" className="termos-link">TERMOS E CONDIÇÕES DE USO</a>
-              </label>
-            </div>
+                        {/* SENHA */}
+                        <div className="form-group">
+                            <label htmlFor="senha">Senha:</label>
+                            <input type="password" id="senha" name="senha" value={senha} onChange={(e) => setSenha(e.target.value)} required />
+                        </div>
 
-            {/* Botões */}
-            <div className="form-buttons">
-              <button type="submit" className="btn-submit" disabled={isLoading}>
-                  {isLoading ? 'Cadastrando...' : 'CADASTRAR'}
-              </button>
-              <button type="button" className="btn-secondary">CADASTRAR VEICULO</button>
-            </div>
+                        {/* CONFIRME SUA SENHA */}
+                        <div className="form-group">
+                            <label htmlFor="confirmarSenha">Confirmar Senha:</label>
+                            <input type="password" id="confirmarSenha" name="confirmarSenha" value={confirmarSenha} onChange={(e) => setConfirmarSenha(e.target.value)} required />
+                        </div>
 
-          </form>
+                        {/* CPF/CNPJ COM FORMATAÇÃO */}
+                        <div className="form-group">
+                            <label htmlFor="cpfCnpj">CPF/CNPJ:</label>
+                            <input 
+                                type="text" 
+                                id="cpfCnpj" 
+                                name="cpfCnpj" 
+                                value={cpfCnpj} 
+                                onChange={handleCpfCnpjChange} 
+                                maxLength={18} 
+                                required 
+                            />
+                        </div>
 
-        </div>
-      </Section>
-    </>
-  )
+                        {/* TELEFONE COM FORMATAÇÃO */}
+                        <div className="form-group">
+                            <label htmlFor="telefone">Telefone:</label>
+                            <input 
+                                type="tel" 
+                                id="telefone" 
+                                name="telefone" 
+                                value={telefone} 
+                                onChange={handleTelefoneChange} 
+                                maxLength={15} 
+                            />
+                        </div>
+
+                        {/* SEXO: Combobox (Select) */}
+                        <div className="form-group">
+                            <label htmlFor="sexo">Sexo:</label>
+                            <select 
+                                id="sexo" 
+                                name="sexo" 
+                                value={sexo} 
+                                onChange={(e) => setSexo(e.target.value as Sexo)} 
+                                required
+                            >
+                                {OPCOES_SEXO.map(opcao => (
+                                    <option key={opcao.value} value={opcao.value} disabled={opcao.value === ''}>
+                                        {opcao.label}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        
+                        {/* DATA DE NASCIMENTO: input type="date" */}
+                        <div className="form-group">
+                            <label htmlFor="dataNascimento">Data de Nascimento:</label>
+                            <input 
+                                type="date" 
+                                id="dataNascimento" 
+                                name="dataNascimento" 
+                                value={dataNascimento} 
+                                onChange={(e) => setDataNascimento(e.target.value)} 
+                            />
+                        </div>
+                        
+                        {/* Endereço */}
+                        <div className="form-group">
+                            <label htmlFor="endereco">Endereço:</label>
+                            <input type="text" id="endereco" name="endereco" value={endereco} onChange={(e) => setEndereco(e.target.value)} />
+                        </div>
+
+
+                        {/* TERMOS E CONDIÇÕES: Checkbox com Pop-up */}
+                        <div className="form-group-checkbox">
+                            <input 
+                                type="checkbox" 
+                                id="termos" 
+                                name="termos" 
+                                checked={termosAceitos} 
+                                onChange={(e) => setTermosAceitos(e.target.checked)}
+                                // REMOVIDO o required no input, a validação será feita no handleSubmit
+                            />
+                            <label htmlFor="termos">Declaro que li e aceito os termos de uso
+                                {/* 🚨 CHAMA O POP-UP AO CLICAR NO LINK */}
+                                <a href="#" onClick={handleOpenModal} className="termos-link">TERMOS E CONDIÇÕES DE USO</a>
+                            </label>
+                        </div>
+
+                        {success && <p style={{ color: 'green', textAlign: 'center' }}>{success}</p>}
+                        {error && <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>}
+
+                        {/* Botões */}
+                        <div className="form-buttons">
+                            <button type="submit" className="btn-submit" disabled={isLoading}>
+                                {isLoading ? 'Cadastrando...' : 'CADASTRAR'}
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </Section>
+
+            {/* ------------------------------------------------------------------------- */}
+            {/* JSX DO POP-UP (MODAL) */}
+            {/* ------------------------------------------------------------------------- */}
+            {isModalOpen && (
+                <div className="modal-overlay">
+                    <div className="modal-content">
+                        <h3>Termos e Condições de Uso do ReciclaÊ</h3>
+                        <p>
+                            <br/>
+                            Os presentes Termos e Condições de Uso ("Termos") regulamentam o acesso e a utilização do sistema Reciclaê, abrangendo todo o seu conteúdo, funcionalidades e serviços disponibilizados pela Reciclaê, seja na condição de visitante ou usuário registrado.
+                            <br/><br/>
+                            Ao acessar ou utilizar o sistema, você manifesta sua aceitação e concordância em estar vinculado a estes Termos. Caso não concorde com qualquer disposição aqui contida, recomendamos que se abstenha de acessar ou utilizar o sistema.
+                            
+                        </p>
+                        <div className="modal-actions">
+                            <button className="btn-secondary" onClick={handleCloseModal}>
+                                Fechar
+                            </button>
+                            <button className="btn-submit" onClick={handleAcceptTerms}>
+                                ACEITAR E CONTINUAR
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </>
+    );
 };
 export default CadastroUser;

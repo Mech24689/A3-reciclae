@@ -3,6 +3,8 @@
 import { Request, Response } from 'express';
 import pessoaService from '../services/Pessoa.service';
 import { PessoaCreate, PessoaUpdate } from '../models/Pessoa';
+import { UsuarioCreate } from '../models/Usuario';
+import UsuarioService from '../services/Usuario.service';
 
 // -------------------------------------------------------------------------
 // Rota: GET /pessoas
@@ -46,18 +48,34 @@ export async function getPessoaById(req: Request, res: Response): Promise<void> 
 // Rota: POST /pessoas
 // -------------------------------------------------------------------------
 export async function createPessoa(req: Request, res: Response): Promise<void> {
-  const newPessoaData: PessoaCreate = req.body;
-
+  const newPessoaData: PessoaCreate = req.body.pessoa;
+  const newUsuarioData: UsuarioCreate = req.body.usuario;
+  
+  newUsuarioData.username = req.body.pessoa.nome;
+  newUsuarioData.login = req.body.pessoa.email;
+  
   // Validação de campos obrigatórios
-  console.log('Dados recebidos para criação de pessoa:', newPessoaData);
+  console.log('[pessoa.controller.createPessoa] Dados recebidos para criação de pessoa:', newPessoaData);
+  console.log('[pessoa.controller.createPessoa] Dados recebidos para criação de newUsuario:', newUsuarioData);
+  console.log('[pessoa.controller.createPessoa] Dados recebidos para criação de req.body.usuario:', req.body.usuario);
 
   if (!newPessoaData.nome || !newPessoaData.prefeitura_id) {
+    console.log('[pessoa.controller.createPessoa] voltando por erro ');
     res.status(400).json({ message: 'Os campos "nome" e "prefeitura_id" são obrigatórios.' });
     return;
   }
 
   try {
+    console.log('[pessoa.controller.createPessoa] executando ');
     const novaPessoa = await pessoaService.createPessoa(newPessoaData);
+    console.log('[pessoa.controller.createPessoa] novaPessoa criada novaPessoa.id=', novaPessoa.id);
+
+    newUsuarioData.pessoa_id = novaPessoa.id;
+    console.log('[pessoa.controller.createPessoa] criando novo usuario com dados:', newUsuarioData);
+    const novoUsuario = await UsuarioService.createUsuario(newUsuarioData);
+    console.log('[pessoa.controller.createPessoa] novoUsuario:', novoUsuario);
+
+
     res.status(201).json(novaPessoa);
   } catch (error: any) {
     let errorMessage = 'Erro ao criar pessoa.';
