@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Para redirecionar após o login
 import { login } from '../services/authService'; // A função que chama sua API
+import '../styles/login.css';
 
 // Simulação de um Hook de Estado para o usuário logado (usaremos depois)
 interface UserAuth {
@@ -53,9 +54,10 @@ const LoginScreen: React.FC = () => {
 
     return (
         <form onSubmit={handleSubmit} style={{ padding: '20px', maxWidth: '400px' }}>
-            <h2>Login</h2>
             {error && <p style={{ color: 'red' }}>{error}</p>}
             
+            <div>
+            <p>Login</p>
             <input 
                 type="text" 
                 placeholder="Username" 
@@ -63,6 +65,9 @@ const LoginScreen: React.FC = () => {
                 onChange={(e) => setUsername(e.target.value)} 
                 disabled={isLoading}
             />
+            </div>
+            <div>
+                <p>Senha</p>
             <input 
                 type="password" 
                 placeholder="Senha" 
@@ -70,9 +75,11 @@ const LoginScreen: React.FC = () => {
                 onChange={(e) => setSenha(e.target.value)} 
                 disabled={isLoading}
             />
+            </div>
             <button type="submit" disabled={isLoading}>
                 {isLoading ? 'Validando...' : 'Entrar'}
             </button>
+            <p>Esqueceu a senha?</p>
         </form>
     );
 };

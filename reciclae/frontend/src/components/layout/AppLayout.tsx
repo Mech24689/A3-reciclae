@@ -73,6 +73,7 @@ export default function AppLayout({
         >
           {NavbarComponent} {/* Aqui entra o conteúdo da página (Home, About, etc.) */}
         </main>
+        
       </div>
     </div>
   );
