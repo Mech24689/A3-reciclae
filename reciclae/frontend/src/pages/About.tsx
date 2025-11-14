@@ -17,23 +17,24 @@ export default function About() {
 {/* Texto */}
 <div className="space-y-6 text-justify leading-relaxed text-[1.05rem]">
 
-<p className="mb-4">
+<p>
 Somos uma startup tecnológica e inovadora dedicada à sustentabilidade e à gestão eficiente de resíduos recicláveis.
 Conectamos cidadãos, empresas e prefeituras por meio de mapas interativos, alertas personalizados e logística otimizada
 para o descarte correto.
 </p>
 
-<p className="mb-4">
+<p>
 Inspirados pelo movimento Zero Waste, transformamos consciência ambiental em ação com soluções como desafios sustentáveis,
 relatórios de impacto e validação de coletas via QR code, incentivando hábitos responsáveis e engajamento coletivo.
 </p>
 
 
-<p className="mb-4">
+<p>
 Com foco em inovação, inclusão e transparência, oferecemos uma plataforma intuitiva e segura. Entre nossos diferenciais estão
 a integração entre tecnologia e meio ambiente, rotas otimizadas, monitoramento em tempo real e recompensas.
 Junte-se à Reciclaê e ajude a tornar as cidades mais limpas e sustentáveis.
 </p>
+
 </div>
 
 
@@ -43,7 +44,7 @@ Junte-se à Reciclaê e ajude a tornar as cidades mais limpas e sustentáveis.
 </div>
 </div>
 </div>
-//</div>
+</div>
 )
 }
 
