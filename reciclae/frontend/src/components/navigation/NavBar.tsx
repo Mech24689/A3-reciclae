@@ -1,85 +1,49 @@
-// import '../../styles/header.css';
-// import { useNavigate } from 'react-router-dom'
-
-// export default function NavBar() {
-//   return (
-//     <nav className='btn-header'>
-//       <ul>
-//         <li className='btn-header-link'>Sobre nós</li>
-//         <li className='btn-header-link'>Dias de coleta</li>
-//         <li className='btn-header-link'>Pontos de coleta</li>
-//         <li className='btn-header-link'>Cadastrar Veículo</li>
-//         <li className='btn-header-link'>Contato</li>
-//         <li className='btn-login-cadastro btn-login'>Login</li>
-//         <li className='btn-login-cadastro btn-cadastro'>Cadastrar</li>
-//       </ul>
-//     </nav>
-//   )
-// }
-
-import React from 'react'; // Boa prática importar React, mesmo que não seja estritamente necessário em todas as versões.
 import '../../styles/header.css';
-import { useNavigate } from 'react-router-dom' // 👈 Importação necessária
+import { useNavigate } from 'react-router-dom';
+import { useAuthStore } from '../../store/authStore'; 
 
 export default function NavBar() {
-  const navigate = useNavigate(); // 👈 Inicializa o hook de navegação
+  const navigate = useNavigate();
 
-  // Função para navegar para a rota de Login
-  const handleLoginClick = () => {
-    navigate('/login'); // Rota de destino para Login
-  }
+  // 🚨 Pega o estado de autenticação e a função de logout
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const logout = useAuthStore((state) => state.logout);
 
-  // Função para navegar para a rota de Cadastro
-  const handleCadastroClick = () => {
-    navigate('/cadastro-user'); // Rota de destino para Cadastro
-  }
+  // ... (Funções handle...Click permanecem as mesmas) ...
+  const handleLoginClick = () => { navigate('/login'); }
+  const handleCadastroClick = () => { navigate('/cadastro-user'); }
+  const handleAboutClick = () => { navigate('/sobre-nos'); }
+  const handleDiasColetaClick = () => { navigate('/DiasDeColeta'); }
+  const handlePontosColetaClick = () => { navigate('/pontos-coleta'); }
+  const handleCadastroVeiculoClick = () => { navigate('/cadastro-veiculo'); }
+  const handleContatoClick = () => { navigate('/contato'); }
 
-  const handleAboutClick = () => {
-    navigate('/sobre-nos'); // Rota de destino para Cadastro
-  }
-
-  const handleDiasColetaClick = () => {
-    navigate('/DiasDeColeta'); // Rota de destino para Cadastro
-  }
-
-  const handlePontosColetaClick = () => {
-    navigate('/pontos-coleta'); // Rota de destino para Cadastro
-  }
-
-  const handleCadastroVeiculoClick = () => {
-    navigate('/cadastro-veiculo'); // Rota de destino para Cadastro
-  }
-
-  const handleContatoClick = () => {
-    navigate('/contato'); // Rota de destino para Cadastro
-  }
 
   return (
     <nav className='btn-header'>
       <ul>
-        {/* Você pode substituir <li> por <Link> se forem links simples */}
+
         <li className='btn-header-link' onClick={handleAboutClick}>Sobre nós</li>
         <li className='btn-header-link' onClick={handleDiasColetaClick}>Dias de coleta</li>
         <li className='btn-header-link' onClick={handlePontosColetaClick}>Pontos de coleta</li>
-        <li className='btn-header-link' onClick={handleCadastroVeiculoClick}>Cadastrar Veículo</li>
+        {isAuthenticated ? (
+          <li className='btn-header-link' onClick={handleCadastroVeiculoClick}>Cadastrar Veículo</li>
+        ): null}
+        
         <li className='btn-header-link' onClick={handleContatoClick}>Contato</li>
+
         
-        {/* Botão de Login com navegação */}
-        <li 
-          className='btn-login-cadastro btn-login' 
-          onClick={handleLoginClick} // 👈 Aplica o evento de clique
-        >
-          Login
-        </li>
+        {isAuthenticated ? (
         
-        {/* Botão de Cadastro com navegação */}
-        <li 
-          className='btn-login-cadastro btn-cadastro'
-          onClick={handleCadastroClick} // 👈 Aplica o evento de clique
-        >
-          Cadastrar
-        </li>
+          <li className='btn-login-cadastro btn-logout' onClick={logout}>Sair</li>
+        ) : (
+
+          <>
+            <li className='btn-login-cadastro btn-login' onClick={handleLoginClick}>Login</li>
+            <li className='btn-login-cadastro btn-cadastro' onClick={handleCadastroClick}>Cadastrar</li>
+          </>
+        )}
       </ul>
     </nav>
-  )
+  );
 }

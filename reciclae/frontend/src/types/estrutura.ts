@@ -40,8 +40,6 @@ export interface RegistrationData {
         
     };
 }
-    
-// src/types/estrutura.ts (Exemplo)
 
 export interface VeiculoData {
     pessoa_id: number; // ID da pessoa logada
@@ -61,5 +59,4 @@ export interface VeiculoResponse {
     ano: number;
     cor: string;
     tipo_veiculo: 'CARRO' | 'MOTO' | 'CAMINHAO'; 
-    
 }

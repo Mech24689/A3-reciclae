@@ -106,6 +106,12 @@ export async function getVeiculosByPessoaId(pessoaId: number): Promise<Veiculo[]
     }
 }
 
+export async function findByPessoaId(pessoaId: number) {
+    return knex('veiculo') // Assumindo o nome da tabela
+        .where({ pessoa_id: pessoaId })
+        .select('*');
+}
+
 export default {
     createVeiculo,
     getAllVeiculos,
@@ -113,4 +119,5 @@ export default {
     updateVeiculo,
     deleteVeiculo,
     getVeiculosByPessoaId,
+    findByPessoaId,
 };

@@ -125,3 +125,22 @@ export async function deleteVeiculo(req: Request, res: Response): Promise<void> 
     res.status(409).json({ message: errorMessage });
   }
 }
+
+export async function getVeiculosByPessoaId(req: Request, res: Response): Promise<void> {
+    try {
+      console.log("Entrou no getVeiculosByPessoaId controller", req.params);
+        const pessoaId = Number(req.params.pessoaId); // Captura o ID da URL
+
+        if (Number.isNaN(pessoaId)) {
+            res.status(400).json({ message: 'ID da pessoa inválido.' });
+            return;
+        }
+
+        const veiculos = await veiculoService.findByPessoaId(pessoaId); // Chama a função de busca
+        
+        res.status(200).json(veiculos);
+    } catch (error) {
+        console.error('Erro ao buscar veículos:', error);
+        res.status(500).json({ message: 'Erro interno do servidor.' });
+    }
+}

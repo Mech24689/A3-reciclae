@@ -8,6 +8,7 @@ interface UserProfile {
     username: string;
     role: string;
     prefeituraId: number;
+    pessoa_id: number;
     // Adicione outros campos importantes
 }
 
@@ -32,7 +33,7 @@ export const useAuthStore = create<AuthState>((set) => ({
     login: (token, user) => {
         localStorage.setItem('authToken', token);
         // Você também pode salvar o usuário se ele for pequeno:
-        // localStorage.setItem('user', JSON.stringify(user)); 
+        localStorage.setItem('user', JSON.stringify(user)); 
         set({
             isAuthenticated: true,
             user: user,
@@ -43,7 +44,7 @@ export const useAuthStore = create<AuthState>((set) => ({
     // Função de Logout: Remove o token e reseta o estado
     logout: () => {
         localStorage.removeItem('authToken');
-        // localStorage.removeItem('user'); 
+        localStorage.removeItem('user'); 
         set({ isAuthenticated: false, user: null, token: null });
     },
     

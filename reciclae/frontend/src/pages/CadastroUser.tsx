@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import PageTitle from '../components/layout/PageTitle';
-import Section from '../components/layout/Section';
 import { useNavigate } from 'react-router-dom';
 import { register } from '../services/authService';
 import { type RegistrationData, type UserRole } from '../types/estrutura';
@@ -14,7 +12,7 @@ import '../styles/cadastrouser.css';
 
 /** Remove caracteres não-numéricos e aplica a máscara de CPF (11 dígitos) ou CNPJ (14 dígitos). */
 const formatCpfCnpj = (value: string): string => {
-    const cleaned = value.replace(/\D/g, ''); 
+    const cleaned = value.replace(/\D/g, '');
     if (cleaned.length <= 11) {
         return cleaned
             .replace(/(\d{3})(\d)/, '$1.$2')
@@ -51,7 +49,7 @@ const formatTelefone = (value: string): string => {
 export type Sexo = 'MASCULINO' | 'FEMININO' | 'OUTRO' | '';
 
 const OPCOES_SEXO: { value: Sexo; label: string }[] = [
-    { value: '', label: 'Selecione o Sexo' },
+    { value: '', label: '(Selecione)' },
     { value: 'MASCULINO', label: 'Masculino' },
     { value: 'FEMININO', label: 'Feminino' },
     { value: 'OUTRO', label: 'Outro' },
@@ -63,17 +61,17 @@ const CadastroUser: React.FC = () => {
     // ESTADOS
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
-    const [cpfCnpj, setCpfCnpj] = useState(''); 
-    const [telefone, setTelefone] = useState(''); 
+    const [cpfCnpj, setCpfCnpj] = useState('');
+    const [telefone, setTelefone] = useState('');
     const [endereco, setEndereco] = useState('');
     const [dataNascimento, setDataNascimento] = useState('');
     const [sexo, setSexo] = useState<Sexo>('');
     const [senha, setSenha] = useState('');
     const [confirmarSenha, setConfirmarSenha] = useState('');
-    
+
     const [termosAceitos, setTermosAceitos] = useState(false); // Aceitação final
     const [isModalOpen, setIsModalOpen] = useState(false); // Estado do pop-up
-    
+
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState<string | null>(null);
@@ -127,30 +125,30 @@ const CadastroUser: React.FC = () => {
             return;
         }
         if (sexo === '') {
-             setError('Selecione o campo Sexo.');
+            setError('Selecione o campo Sexo.');
             return;
         }
 
         setIsLoading(true);
-        
-        const cpfCnpjLimpo = cpfCnpj.replace(/\D/g, ''); 
-        const telefoneLimpo = telefone.replace(/\D/g, ''); 
+
+        const cpfCnpjLimpo = cpfCnpj.replace(/\D/g, '');
+        const telefoneLimpo = telefone.replace(/\D/g, '');
 
         const data: RegistrationData = {
             pessoa: {
                 prefeitura_id: 1,
                 nome: nome,
-                cpf_cnpj: cpfCnpjLimpo, 
+                cpf_cnpj: cpfCnpjLimpo,
                 tipo_pessoa: 'CIDADAO',
                 email: email,
-                telefone: telefoneLimpo, 
-                sexo: sexo, 
-                data_nasc: dataNascimento || null, 
+                telefone: telefoneLimpo,
+                sexo: sexo,
+                data_nasc: dataNascimento || null,
                 enderecos: endereco,
-                termos: termosAceitos ? 'ACEITO' : 'NAO_ACEITO', 
+                termos: termosAceitos ? 'ACEITO' : 'NAO_ACEITO',
             },
             usuario: {
-                username: email, 
+                username: email,
                 senha_texto_puro: senha,
                 role: 'CIDADAO',
                 prefeitura_id: 1,
@@ -171,77 +169,54 @@ const CadastroUser: React.FC = () => {
         }
     };
 
-    // -------------------------------------------------------------------------
-    // JSX DE RENDERIZAÇÃO
-    // -------------------------------------------------------------------------
     return (
         <>
-            <PageTitle>Cadastro de Usuário</PageTitle>
-            <Section>
+            <h1 className="titulo">Cadastro de usuário</h1>
+            <div>
                 <div className="user-form-container">
-                    <form onSubmit={handleSubmit}>
-                        
-                        {/* Nome */}
-                        <div className="form-group">
-                            <label htmlFor="nome">Nome:</label>
+                    <form onSubmit={handleSubmit} className='form-user'>
+
+
+                        <div className="campoUsr">
+                            <label >Nome:</label>
                             <input type="text" id="nome" name="nome" value={nome} onChange={(e) => setNome(e.target.value)} required />
                         </div>
 
-                        {/* E-mail (Username) */}
-                        <div className="form-group">
-                            <label htmlFor="email">E-mail:</label>
+
+                        <div className="campoUsr">
+                            <label >E-mail:</label>
                             <input type="email" id="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
                         </div>
 
-                        {/* SENHA */}
-                        <div className="form-group">
-                            <label htmlFor="senha">Senha:</label>
+
+                        <div className="campoUsr">
+                            <label >Senha:</label>
                             <input type="password" id="senha" name="senha" value={senha} onChange={(e) => setSenha(e.target.value)} required />
                         </div>
 
-                        {/* CONFIRME SUA SENHA */}
-                        <div className="form-group">
-                            <label htmlFor="confirmarSenha">Confirmar Senha:</label>
+
+                        <div className="campoUsr">
+                            <label >Confirmar senha:</label>
                             <input type="password" id="confirmarSenha" name="confirmarSenha" value={confirmarSenha} onChange={(e) => setConfirmarSenha(e.target.value)} required />
                         </div>
 
-                        {/* CPF/CNPJ COM FORMATAÇÃO */}
-                        <div className="form-group">
-                            <label htmlFor="cpfCnpj">CPF/CNPJ:</label>
-                            <input 
-                                type="text" 
-                                id="cpfCnpj" 
-                                name="cpfCnpj" 
-                                value={cpfCnpj} 
-                                onChange={handleCpfCnpjChange} 
-                                maxLength={18} 
-                                required 
+
+                        <div className="campoUsr">
+                            <label >CPF:</label>
+                            <input type="text" id="cpfCnpj" name="cpfCnpj" value={cpfCnpj} onChange={handleCpfCnpjChange} maxLength={11} required
                             />
                         </div>
 
-                        {/* TELEFONE COM FORMATAÇÃO */}
-                        <div className="form-group">
-                            <label htmlFor="telefone">Telefone:</label>
-                            <input 
-                                type="tel" 
-                                id="telefone" 
-                                name="telefone" 
-                                value={telefone} 
-                                onChange={handleTelefoneChange} 
-                                maxLength={15} 
-                            />
+                        
+                        <div className="campoUsr">
+                            <label >Telefone:</label>
+                            <input type="tel" id="telefone" name="telefone" value={telefone} onChange={handleTelefoneChange} maxLength={15} />
                         </div>
 
-                        {/* SEXO: Combobox (Select) */}
-                        <div className="form-group">
-                            <label htmlFor="sexo">Sexo:</label>
-                            <select 
-                                id="sexo" 
-                                name="sexo" 
-                                value={sexo} 
-                                onChange={(e) => setSexo(e.target.value as Sexo)} 
-                                required
-                            >
+                        
+                        <div className="campoUsr">
+                            <label >Sexo:</label>
+                            <select className="select" id="sexo" name="sexo" value={sexo} onChange={(e) => setSexo(e.target.value as Sexo)} required                            >
                                 {OPCOES_SEXO.map(opcao => (
                                     <option key={opcao.value} value={opcao.value} disabled={opcao.value === ''}>
                                         {opcao.label}
@@ -249,35 +224,29 @@ const CadastroUser: React.FC = () => {
                                 ))}
                             </select>
                         </div>
+
                         
-                        {/* DATA DE NASCIMENTO: input type="date" */}
-                        <div className="form-group">
-                            <label htmlFor="dataNascimento">Data de Nascimento:</label>
-                            <input 
-                                type="date" 
-                                id="dataNascimento" 
-                                name="dataNascimento" 
-                                value={dataNascimento} 
-                                onChange={(e) => setDataNascimento(e.target.value)} 
-                            />
+                        <div className="campoUsr">
+                            <label >Data de nascimento:</label>
+                            <input type="date" id="dataNascimento" name="dataNascimento" value={dataNascimento} onChange={(e) => setDataNascimento(e.target.value)} />
                         </div>
+
                         
-                        {/* Endereço */}
-                        <div className="form-group">
-                            <label htmlFor="endereco">Endereço:</label>
+                        <div className="campoUsr">
+                            <label >Endereço:</label>
                             <input type="text" id="endereco" name="endereco" value={endereco} onChange={(e) => setEndereco(e.target.value)} />
                         </div>
 
 
                         {/* TERMOS E CONDIÇÕES: Checkbox com Pop-up */}
                         <div className="form-group-checkbox">
-                            <input 
-                                type="checkbox" 
-                                id="termos" 
-                                name="termos" 
-                                checked={termosAceitos} 
+                            <input
+                                type="checkbox"
+                                id="termos"
+                                name="termos"
+                                checked={termosAceitos}
                                 onChange={(e) => setTermosAceitos(e.target.checked)}
-                                // REMOVIDO o required no input, a validação será feita no handleSubmit
+                            // REMOVIDO o required no input, a validação será feita no handleSubmit
                             />
                             <label htmlFor="termos">Declaro que li e aceito os termos de uso
                                 {/* 🚨 CHAMA O POP-UP AO CLICAR NO LINK */}
@@ -290,14 +259,14 @@ const CadastroUser: React.FC = () => {
 
                         {/* Botões */}
                         <div className="form-buttons">
-                            <button type="submit" className="btn-submit" disabled={isLoading}>
-                                {isLoading ? 'Cadastrando...' : 'CADASTRAR'}
+                            <button type="submit" className="btn" disabled={isLoading}>
+                                {isLoading ? 'Cadastrando...' : 'Cadastrar'}
                             </button>
                         </div>
 
                     </form>
                 </div>
-            </Section>
+            </div>
 
             {/* ------------------------------------------------------------------------- */}
             {/* JSX DO POP-UP (MODAL) */}
@@ -307,18 +276,18 @@ const CadastroUser: React.FC = () => {
                     <div className="modal-content">
                         <h3>Termos e Condições de Uso do ReciclaÊ</h3>
                         <p>
-                            <br/>
+                            <br />
                             Os presentes Termos e Condições de Uso ("Termos") regulamentam o acesso e a utilização do sistema Reciclaê, abrangendo todo o seu conteúdo, funcionalidades e serviços disponibilizados pela Reciclaê, seja na condição de visitante ou usuário registrado.
-                            <br/><br/>
+                            <br /><br />
                             Ao acessar ou utilizar o sistema, você manifesta sua aceitação e concordância em estar vinculado a estes Termos. Caso não concorde com qualquer disposição aqui contida, recomendamos que se abstenha de acessar ou utilizar o sistema.
-                            
+
                         </p>
                         <div className="modal-actions">
                             <button className="btn-secondary" onClick={handleCloseModal}>
-                                Fechar
+                                Cancelar
                             </button>
                             <button className="btn-submit" onClick={handleAcceptTerms}>
-                                ACEITAR E CONTINUAR
+                                Aceitar e Continuar
                             </button>
                         </div>
                     </div>

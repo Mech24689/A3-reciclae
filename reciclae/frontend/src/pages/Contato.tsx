@@ -1,8 +1,6 @@
-// src/pages/Contato.jsx
 import PageTitle from '../components/layout/PageTitle'
 import Section from '../components/layout/Section'
 import DetailView from '../components/data-display/DetailView'
-//import Skeleton from '../components/loading/Skeleton'
 import { FaWhatsapp } from 'react-icons/fa'
 import '../styles/Contato.css'
 
@@ -10,14 +8,11 @@ import '../styles/Contato.css'
 export default function Contato() {
   return (
     <>
-      {/* Wrapper para centralizar o título */}
+      <h1 className="titulo">Contato</h1>
       <div className="contato-wrapper">
-        <PageTitle subtitle="Fale conosco e contribua com um futuro sustentável">
-          Contato
-        </PageTitle>
+        <PageTitle subtitle="Fale conosco e contribua com um futuro sustentável"/>
       </div>
 
-      {/* Seção principal de contato */}
       <div className="contato-section">
         <Section title="Entre em Contato com a Reciclaê">
           <DetailView title="Informações de Contato">
@@ -43,7 +38,6 @@ export default function Contato() {
         </Section>
       </div>
 
-      {/* Ícone flutuante do WhatsApp */}
       <a
         href="https://wa.me/5511954949932"
         target="_blank"

@@ -77,9 +77,10 @@ const QuadroColetas: React.FC = () => {
   };
 
   return (
+   <> <h1 className="titulo">Quadro de coletas</h1>
     <div className="container-coletas">
       <div className="quadro-principal">
-        <div className="titulo-coletas">Quadro de Coletas</div>
+        <div className="titulo-coletas"></div>
         
         <div className="quadro-calendario">
           {diasDaSemana.map(dia => (
@@ -103,6 +104,7 @@ const QuadroColetas: React.FC = () => {
         ))}
       </div>
     </div>
+    </>
   );
 };
 

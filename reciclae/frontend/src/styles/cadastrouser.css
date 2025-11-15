@@ -1,16 +1,6 @@
 /* CadastroUser.css */
 
 /* O container principal que imita o da sua imagem */
-.user-form-container {
-  background-color: #bdc0bd; /* Tom de verde-claro similar */
-  border: 1px solid #cddccd;
-  border-radius: 25px; /* Cantos arredondados */
-  padding: 2rem 3rem;
-  max-width: 900px;
-  margin: 2rem auto; /* Centraliza o formulário */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-}
 
 /* Ajusta o PageTitle (assumindo que ele vira um h1 ou h2) */
 /* Você pode precisar ajustar o seletor (ex: .page-title-class) */
@@ -19,6 +9,64 @@ h1, h2 {
   color: #333;
   font-weight: 600;
   margin-bottom: 2rem;
+}
+
+input{
+  color: #111;
+}
+
+.form-user{
+ // display: flex;
+  //flex-direction: column;
+  //gap: 5px;
+  //width: 100%;
+  //height: 100%;  
+
+  gap: 5px;
+  margin: 0 auto;
+  padding: 40px;
+  background-color: #8ae28a8a;
+  width: 75%;
+  height: 75%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  border-radius: 15px;    
+}
+
+.campoUsr {
+  display: flex;
+  align-items: center;
+  font-size: 22px;
+  font-weight: 600;
+  color: #1e1e1e;
+}
+/* Label fixo à esquerda */
+.campoUsr label {
+  width: 30%;
+}
+
+/* Inputs grandes */
+.campoUsr input {
+  flex: 1;
+  padding: 10px;
+  background: white;
+  color: #111;
+  border: none;
+  border-radius: 12px;
+  font-size: 20px;
+  margin:5px;
+}
+
+.campoUsr select {
+  flex: 1;
+  padding: 10px;
+  background: white;
+  color: #111;
+  border: none;
+  border-radius: 12px;
+  font-size: 20px;
+  margin:5px;
 }
 
 /* Layout em Grid para os campos (Label + Input) */
@@ -37,7 +85,7 @@ h1, h2 {
   text-align: right; /* Alinha as labels à direita */
 }
 
-/* Estilo geral dos inputs */
+/* Estilo geral dos inputs 
 .form-group input[type="text"],
 .form-group input[type="email"],
 .form-group input[type="tel"],
@@ -47,21 +95,30 @@ h1, h2 {
   border: 1px solid #aaa;
   border-radius: 8px;
   font-size: 1rem;
-  box-sizing: border-box; /* Garante que o padding não quebre o layout */
+  box-sizing: border-box; /* Garante que o padding não quebre o layout 
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid #aaa;
+  border-radius: 8px;
+  font-size: 1rem;
+  box-sizing: border-box; /* Garante que o padding não quebre o layout 
 }
 
 /* Grupo do Checkbox (layout especial) */
 .form-group-checkbox {
   display: flex;
   align-items: flex-start;
+  justify-content: center;
   margin: 2rem 0;
-  /* Alinha com os inputs */
-  padding-left: calc(180px + 1.5rem); 
+  /* Alinha com os inputs */ 
 }
 
 .form-group-checkbox input[type="checkbox"] {
   width: 18px;
-  height: 18px;
+  height: 100%;
   margin-top: 5px; /* Alinha com a primeira linha do texto */
   margin-right: 10px;
   flex-shrink: 0; /* Impede que o checkbox encolha */
@@ -130,11 +187,22 @@ h1, h2 {
     max-width: 600px;
     width: 90%;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
+  }
+  
+  .modal-content p{
+    color: #111;
+  }
 
 .modal-actions {
     margin-top: 20px;
     display: flex;
     justify-content: flex-end;
     gap: 10px;
+}
+
+.form-group select{
+  background-color: #fff;
+  color: #111;
+  height: 100%;
+  border-radius: 5px;
 }

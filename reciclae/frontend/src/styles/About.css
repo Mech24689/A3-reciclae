@@ -11,5 +11,8 @@ body{
 .area{
     margin-right: 10%;
     text-align: justify;
-    font-weight: bold
+    
+}
+.pAbout{
+    font-size: 1.1rem;
 }

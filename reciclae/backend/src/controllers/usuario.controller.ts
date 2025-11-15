@@ -3,6 +3,7 @@
 import { Request, Response } from 'express';
 import usuarioService from '../services/Usuario.service';
 import { UsuarioCreate, UsuarioUpdate } from '../models/Usuario';
+const { nanoid } = require("nanoid");
 
 // -------------------------------------------------------------------------
 // Rota: POST /usuarios/register
@@ -64,8 +65,8 @@ export async function loginUsuario(req: Request, res: Response): Promise<void> {
             const { senha: _, ...usuarioLogado } = usuarioDB; // Remove o hash da senha
             res.status(200).json({ 
                 message: 'Login bem-sucedido!',
-                usuario: usuarioLogado,
-                // token: 'SEU_JWT_AQUI' 
+                user: usuarioLogado,
+                token: nanoid(12)  // Token simulado,
             });
         } else {
             res.status(401).json({ message: 'Credenciais inválidas.' });

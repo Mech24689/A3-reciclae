@@ -1,7 +1,5 @@
-// src/services/authService.ts
-
 import api from '../api/httpClient';
-import {type AuthResponse, type LoginData, type RegistrationData}  from '../types/estrutura';
+import { type AuthResponse, type LoginData, type RegistrationData } from '../types/estrutura';
 
 
 const AUTH_URLS = {
@@ -18,10 +16,10 @@ export async function login(data: LoginData): Promise<AuthResponse> {
       login: data.username,
       senha: data.senha,
     });
-    
+
     // Armazena o token recebido no localStorage ou no state manager (ex: Zustand)
-    localStorage.setItem('authToken', response.data.token); 
-    
+    localStorage.setItem('authToken', response.data.token);
+
     return response.data;
   } catch (error) {
     // Tratamento de erro (ex: 401 Credenciais Inválidas)
@@ -39,7 +37,7 @@ export async function register(data: RegistrationData): Promise<void> {
     console.log("AUTH_URLS.REGISTER:", AUTH_URLS.REGISTER);
 
     await api.post(AUTH_URLS.REGISTER, data);
-    
+
   } catch (error) {
     // Tratamento de erro (ex: 409 Conflito de CPF/CNPJ)
     throw new Error('Falha no registro. CPF/Email/Username já cadastrado.');

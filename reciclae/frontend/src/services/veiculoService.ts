@@ -5,10 +5,10 @@ import { type VeiculoData, type VeiculoResponse } from '../types/estrutura';
 
 const VEICULO_URLS = {
     // Rota que pode buscar todos os veículos de uma pessoa
-    GET_BY_PESSOA: (pessoaId: number) => `/api/pessoas/${pessoaId}/veiculos`, 
-    REGISTER: '/api/veiculos',
+    GET_BY_PESSOA: (pessoaId: number) => `/pessoas/${pessoaId}/veiculos`, 
+    REGISTER: '/veiculos',
     // Rota para atualizar (PUT/PATCH) um veículo específico
-    UPDATE: (veiculoId: number) => `/api/veiculos/${veiculoId}`, 
+    UPDATE: (veiculoId: number) => `/veiculos/${veiculoId}`, 
 };
 
 // 1. Função para buscar o(s) veículo(s) da pessoa
@@ -37,6 +37,8 @@ export async function updateVeiculo(veiculoId: number, data: Partial<VeiculoData
 export async function registerVeiculo(data: VeiculoData): Promise<VeiculoResponse> {
     try {
         // Envia o objeto VeiculoData para o backend
+        console.log("Registrando veículo com dados:", data);
+        
         const response = await api.post<VeiculoResponse>(VEICULO_URLS.REGISTER, data);
         return response.data;
     } catch (error) {
