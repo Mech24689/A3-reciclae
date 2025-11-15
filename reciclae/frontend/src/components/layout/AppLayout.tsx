@@ -10,6 +10,7 @@ import Login from "../../pages/Login";
 import EsqueceuaSenha from "../../pages/EsqueceuaSenha";
 import TermosUso from "../../pages/Termos";
 import Contato from "../../pages/Contato";
+import SuasInformacoes from "../../pages/SuasInformacoes";
 import { FaWhatsapp } from 'react-icons/fa'
 import QuadroColetas from "../data-display/QuadroColetas";
 import '../../styles/Login.css'; 
@@ -44,7 +45,9 @@ export default function AppLayout({
     }
     else if (currentPath === '/cadastro-user') {
       NavbarComponent = <CadastroUser/>;
-       }
+    } else if (currentPath === '/suas-informacoes') {
+      NavbarComponent = <SuasInformacoes/>;
+    }
     else if (currentPath === '/login') {
       NavbarComponent = <Login/>;
 

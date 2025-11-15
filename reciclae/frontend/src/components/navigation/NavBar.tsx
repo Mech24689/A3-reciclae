@@ -16,6 +16,7 @@ export default function NavBar() {
   const handleDiasColetaClick = () => { navigate('/DiasDeColeta'); }
   const handlePontosColetaClick = () => { navigate('/pontos-coleta'); }
   const handleCadastroVeiculoClick = () => { navigate('/cadastro-veiculo'); }
+  const handleSeuCadastroClick = () => { navigate('/suas-informacoes'); }
   const handleContatoClick = () => { navigate('/contato'); }
 
 
@@ -27,14 +28,16 @@ export default function NavBar() {
         <li className='btn-header-link' onClick={handleDiasColetaClick}>Dias de coleta</li>
         <li className='btn-header-link' onClick={handlePontosColetaClick}>Pontos de coleta</li>
         {isAuthenticated ? (
-          <li className='btn-header-link' onClick={handleCadastroVeiculoClick}>Cadastrar Veículo</li>
+          <>
+            <li className='btn-header-link' onClick={handleCadastroVeiculoClick}>Cadastrar veículo</li>
+            <li className='btn-header-link' onClick={handleSeuCadastroClick}>Suas informações</li>
+          </>
         ): null}
         
         <li className='btn-header-link' onClick={handleContatoClick}>Contato</li>
 
         
         {isAuthenticated ? (
-        
           <li className='btn-login-cadastro btn-logout' onClick={logout}>Sair</li>
         ) : (
 
