@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import PageTitle from '../components/layout/PageTitle';
-import Section from '../components/layout/Section';
 import { useNavigate } from 'react-router-dom';
 import { register } from '../services/authService';
 import { type RegistrationData, type UserRole } from '../types/estrutura';
@@ -176,10 +174,11 @@ const CadastroUser: React.FC = () => {
     // -------------------------------------------------------------------------
     return (
         <>
-            <PageTitle>Cadastro de Usuário</PageTitle>
-            <Section>
+            
+            <h1>Cadastro de Usuário</h1>
+            <div>
                 <div className="user-form-container">
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit} className='form-user'>
                         
                         {/* Nome */}
                         <div className="form-group">
@@ -290,14 +289,14 @@ const CadastroUser: React.FC = () => {
 
                         {/* Botões */}
                         <div className="form-buttons">
-                            <button type="submit" className="btn-submit" disabled={isLoading}>
+                            <button type="submit" className="btn" disabled={isLoading}>
                                 {isLoading ? 'Cadastrando...' : 'CADASTRAR'}
                             </button>
                         </div>
 
                     </form>
                 </div>
-            </Section>
+            </div>
 
             {/* ------------------------------------------------------------------------- */}
             {/* JSX DO POP-UP (MODAL) */}

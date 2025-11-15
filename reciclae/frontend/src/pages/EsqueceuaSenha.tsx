@@ -31,7 +31,6 @@ export default function EsqueceuaSenha() {
     //  👇 AQUI ESTÁ O NOVO WRAPPER ADICIONADO 👇
     <div className="forgot-password-wrapper"> 
 
-        {/* Este é o seu container antigo, que agora está DENTRO do wrapper */}
         <div className="forgot-password-container">
         
           {/* Agora o 'onSubmit' chama a função que acabamos de definir */}
@@ -48,7 +47,7 @@ export default function EsqueceuaSenha() {
                 onChange={(e) => setEmail(e.target.value)}
             />
             
-            <button type="submit">Solicitar senha</button>
+            <button type="submit" className='btn'>Solicitar senha</button>
           </form>
       </div>
       

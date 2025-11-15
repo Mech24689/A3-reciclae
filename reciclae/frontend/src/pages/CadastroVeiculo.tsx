@@ -3,13 +3,14 @@ import Section from '../components/layout/Section'
 import DetailView from '../components/data-display/DetailView'
 import Skeleton from '../components/loading/Skeleton'
 import EmptyState from '../components/empty/EmptyState'
+import "../styles/CadastroVeiculo.css"
 
 export default function CadastroVeiculo() {
   return (
-    <div className="container">
+    <div>
       <h1 className="titulo">Cadastrar Veículo</h1>
 
-      <div className="card">
+      <div>
         <form className="formulario">
           <div className="campo">
             <label>Placa:</label>
@@ -41,7 +42,7 @@ export default function CadastroVeiculo() {
             <input type="number" />
           </div>
 
-          <button className="btn">CADASTRAR</button>
+          <button className="btn-cadastrar">CADASTRAR</button>
         </form>
       </div>
     </div>

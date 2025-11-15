@@ -1,78 +1,67 @@
-/* Login.css */
-
-/*
-  Este é o wrapper que cobre a tela inteira.
-  Ele define o fundo escuro e centraliza a caixa de login.
-*/
-.login-page-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 90vh; /* Garante que ocupe a altura da tela */
-  background-color: #333333; /* O fundo cinza-escuro da imagem */
-  /* Se o <Section> adicionar padding, talvez você precise ajustar isso */
+.content-login-1{
+  height: 100%;
 }
 
-/* Esta é a caixa de login verde-claro */
-.login-form-box {
-  background-color: #B8DBB8; /* Tom de verde-claro da imagem */
-  padding: 2.5rem 2rem;
-  border-radius: 8px; /* Cantos levemente arredondados */
-  width: 100%;
-  max-width: 400px; /* Define uma largura máxima para a caixa */
-  
+.content-login{
+  height: 100%;
 }
 
-/* Organiza o formulário internamente */
-.login-form-box form {
+.form-login{
+  margin: 0 auto;
+  padding: 40px;
+  background-color: #8ae28a8a;
+  width: 60%;
+  height: 60%;
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
+  border-radius: 15px;
 }
 
-.login-form-box label {
-  font-weight: 500;
-  margin-bottom: 0.5rem;
-  color: #222;
-  font-family: Arial, sans-serif; /* Uma fonte limpa */
+.form-login div{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 15%;
 }
 
-/* Estilo dos campos de input */
-.login-form-box input {
-  padding: 0.9rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  margin-bottom: 1.25rem; /* Espaço entre os inputs */
-  font-size: 1rem;
-  background-color: #ffffff; /* Fundo branco como na imagem */
+p{
+  color: #111;
+  font-size: 1.5rem;
 }
 
-.login-form-box input::placeholder {
-  color: #aaa;
-}
-
-/* O botão "Entrar" */
-.btn-entrar {
-  background-color: #444; /* Cinza escuro do botão */
-  color: white;
-  padding: 0.9rem;
+input{
+  margin-top: 5px;
+  width: 80%;
+  height: 100%;
+  background-color: #fff;
+  padding-left: 15px;
+  border-radius: 7px;
+  font-size: 1.3rem;
   border: none;
-  border-radius: 4px;
+}
+
+.areabutton{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 25px;
+}
+
+.esqueceuSenha{
+  margin: 0 auto;
+  font-size: 1.3rem;
+  padding-top: 10px;
+  color: #111;
+  text-decoration:underline;
+}
+
+.esqueceuSenha:hover{
   cursor: pointer;
-  font-size: 1rem;
-  font-weight: 600;
-  margin-top: 1rem;
-  transition: background-color 0.2s;
 }
 
-.btn-entrar:hover {
-  background-color: #555;
+.btn{
+  width: 50%;
+  font-size: 1.5rem;
+  margin: 0 auto;
 }
 
-/* O link "Esqueceu a senha?" */
-.forgot-password {
-  text-align: center;
-  margin-top: 1.5rem;
-  font-size: 0.9rem;
-  color: #333;
-  text-decoration: underline;
-}

@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Para redirecionar após o login
+import { useNavigate, Link } from 'react-router-dom'; // Para redirecionar após o login
 import { login } from '../services/authService'; // A função que chama sua API
 import { useAuthStore } from '../store/authStore';
 import '../styles/login.css';
-
-// Importe o SEU ARQUIVO CSS
-import '../styles/Login.css'; 
 
 const LoginScreen: React.FC = () => {
     const [username, setUsername] = useState('');
@@ -42,21 +39,25 @@ const LoginScreen: React.FC = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit} style={{ padding: '20px', maxWidth: '400px' }}>
+        <div className='content-login-1'>
+
+        <h1 className="titulo">Bem vindo</h1>
+        <div className='content-login'>
+        <form onSubmit={handleSubmit} className='form-login'>
             {error && <p style={{ color: 'red' }}>{error}</p>}
             
             <div>
-            <p>Login</p>
+            <p>Login:</p>
             <input 
                 type="text" 
-                placeholder="Username" 
+                placeholder="Login" 
                 value={username} 
                 onChange={(e) => setUsername(e.target.value)} 
                 disabled={isLoading}
             />
             </div>
             <div>
-                <p>Senha</p>
+                <p>Senha:</p>
             <input 
                 type="password" 
                 placeholder="Senha" 
@@ -65,11 +66,17 @@ const LoginScreen: React.FC = () => {
                 disabled={isLoading}
             />
             </div>
-            <button type="submit" disabled={isLoading}>
+            <div className='areabutton'>
+            <button type="submit" disabled={isLoading} className='btn'>
                 {isLoading ? 'Validando...' : 'Entrar'}
             </button>
-            <p>Esqueceu a senha?</p>
+            <Link to="esqueceu-a-senha" className="brand">
+                <p className='esqueceuSenha'>Esqueceu a senha?</p>
+            </Link>
+            </div>
         </form>
+        </div>
+        </div>
     );
 };
 export default LoginScreen;

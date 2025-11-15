@@ -3,6 +3,7 @@ import Section from '../components/layout/Section'
 import DetailView from '../components/data-display/DetailView'
 import Skeleton from '../components/loading/Skeleton'
 import EmptyState from '../components/empty/EmptyState'
+import "../styles/ponto_coleta.css"
 
 // importa o estilo e os componentes do Leaflet
 import 'leaflet/dist/leaflet.css'
@@ -36,11 +37,9 @@ export default function PontosDeColeta() {
 
   return (
     <>
-      <PageTitle subtitle="Componentes básicos com CSS puro.">PontosDeColeta</PageTitle>
-
       <Section title="Mapa de Pontos de Coleta">
-        <div style={{ height: '500px', width: '100%', borderRadius: '8px', overflow: 'hidden' }}>
-          <MapContainer center={[-23.5505, -46.6333]} zoom={12} style={{ height: '100%', width: '100%' }}>
+        <div className='mapa'>
+          <MapContainer center={[-23.5505, -46.6333]} zoom={12} style={{ height: '90%', width: '100%' }}>
             <TileLayer
               attribution="&copy; OpenStreetMap"
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -52,18 +51,6 @@ export default function PontosDeColeta() {
             ))}
           </MapContainer>
         </div>
-      </Section>
-
-      <Section title="Detail View">
-        <DetailView title="Item demonstrativo">
-          <p className="muted">Campos e textos de exemplo para o detalhe.</p>
-        </DetailView>
-      </Section>
-
-      <Section title="Skeleton / Empty State">
-        <Skeleton>
-          <EmptyState>Carregue dados para visualizar conteúdo.</EmptyState>
-        </Skeleton>
       </Section>
     </>
   )

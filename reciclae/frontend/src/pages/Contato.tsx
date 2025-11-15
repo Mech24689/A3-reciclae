@@ -10,14 +10,12 @@ import '../styles/Contato.css'
 export default function Contato() {
   return (
     <>
-      {/* Wrapper para centralizar o título */}
       <div className="contato-wrapper">
         <PageTitle subtitle="Fale conosco e contribua com um futuro sustentável">
           Contato
         </PageTitle>
       </div>
 
-      {/* Seção principal de contato */}
       <div className="contato-section">
         <Section title="Entre em Contato com a Reciclaê">
           <DetailView title="Informações de Contato">
@@ -43,7 +41,6 @@ export default function Contato() {
         </Section>
       </div>
 
-      {/* Ícone flutuante do WhatsApp */}
       <a
         href="https://wa.me/5511954949932"
         target="_blank"

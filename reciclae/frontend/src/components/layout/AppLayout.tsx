@@ -9,6 +9,9 @@ import CadastroUser from "../../pages/CadastroUser";
 import Login from "../../pages/Login";
 import EsqueceuaSenha from "../../pages/EsqueceuaSenha";
 import TermosUso from "../../pages/Termos";
+import Contato from "../../pages/Contato";
+import { FaWhatsapp } from 'react-icons/fa'
+import QuadroColetas from "../data-display/QuadroColetas";
 import '../../styles/Login.css'; 
 // 1. Definição das Propriedades (Props)
 interface AppLayoutProps {
@@ -47,6 +50,13 @@ export default function AppLayout({
 
      } else if (currentPath === '/esqueceu-a-senha') {
       NavbarComponent = <EsqueceuaSenha/>;
+    } else if (currentPath === '/contato') {
+      NavbarComponent = <Contato/>;
+    }
+    else if (currentPath === '/DiasDeColeta') {
+      NavbarComponent = <QuadroColetas/>;
+    }else if (currentPath === '/esqueceu-a-senha') {
+      NavbarComponent = <EsqueceuaSenha/>;
     }
     else {
       NavbarComponent = <Home />; 
@@ -78,6 +88,14 @@ export default function AppLayout({
             .join(" ")
           }
         >
+          <a
+                  href="https://wa.me/5511954949932"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="whatsapp-float"
+                >
+                  <FaWhatsapp size={32} />
+                </a>
           {NavbarComponent} {/* Aqui entra o conteúdo da página (Home, About, etc.) */}
         </main>
         
