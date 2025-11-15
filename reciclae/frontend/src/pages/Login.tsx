@@ -28,7 +28,7 @@ const LoginScreen: React.FC = () => {
             console.log("Token recebido:", authData);
             console.log("Token recebido:", authData.user);
 
-            navigate('/About');
+            navigate('/');
 
         } catch (err: any) {
             // Captura erros de rede ou a exceção lançada pelo authService (ex: Credenciais Inválidas)
