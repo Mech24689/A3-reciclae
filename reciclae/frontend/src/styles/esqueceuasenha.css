@@ -1,55 +1,73 @@
-.forgot-password-wrapper {
-    flex-grow: 1; /* A mágica: faz ele ocupar o espaço vertical sobrando */
-    width: 100%;
-    
-    /* Agora ele centraliza seu próprio conteúdo */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px; /* Espaçamento para telas pequenas */
-    box-sizing: border-box;
+.content-EsqueceuSenha-1{
+  height: 100%;
 }
 
-.forgot-password-container {
-    width: 80%;
-    box-sizing: border-box;
+.content-EsqueceuSenha{
+  height: 100%;
 }
 
-h2 {
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 20px;
-    font-weight: 600;
+.form-EsqueceuSenha {
+  gap: 5px;
+  margin: 0 auto;
+  padding: 50px;
+  background-color: #8ae28a8a;
+  width: 60%;
+  height: 35%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  border-radius: 15px;  
+
 }
 
-/* O campo de input (Sem mudança) 
-input[type="email"] {
-    width: 100%;
-    padding: 15px;
-    margin-bottom: 15px;
-    border: none;
-    border-radius: 8px;
-    background-color: #ffffff;
-    box-sizing: border-box;
-    font-size: 16px;
-}
-*/
-/* O botão de "Solicitar senha" (Sem mudança) */
-button {
-    margin: 0 auto;
-    width: 50%;
-    padding: 15px;
-    border: none;
-    border-radius: 8px;
-    background-color: #333333;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+
+.campoUsr {
+  display: flex;
+  align-items: center;
+  font-size: 22px;
+  font-weight: 600;
+  color: #1e1e1e;
 }
 
-/* Efeito hover no botão (Sem mudança) */
-button:hover {
-    background-color: #555555;
+/* Label fixo à esquerda */
+.campoUsr label {
+  width: 30%;
 }
+
+/* Inputs grandes */
+.campoUsr input {
+  flex: 1;
+  padding: 10px;
+  background: white;
+  color: #111;
+  border: none;
+  border-radius: 12px;
+  font-size: 20px;
+  margin:5px;
+}
+
+.campoUsr select {
+  flex: 1;
+  padding: 10px;
+  background: white;
+  color: #111;
+  border: none;
+  border-radius: 12px;
+  font-size: 20px;
+  margin:5px
+}
+
+
+.areabutton{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 25px;
+}
+
+
+.btn{
+  width: 50%;
+  font-size: 1.5rem;
+  margin: 0 auto;
+}
+

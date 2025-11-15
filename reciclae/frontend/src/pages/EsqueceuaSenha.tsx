@@ -6,16 +6,18 @@ import '../styles/esqueceuasenha.css';
 
 export default function EsqueceuaSenha() {
 
-    // 1. Criamos um "estado" para guardar o e-mail
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+
     const [email, setEmail] = useState('');
 
     // -----------------------------------------------------------------
     // 2. A FUNÇÃO 'handleSubmit'
     // Ela precisa existir para o 'onSubmit' do formulário funcionar.
     // -----------------------------------------------------------------
-    //const handleSubmit = (event) => {
+     const handleSubmit = async (e: React.FormEvent) => {
         // Impede o formulário de recarregar a página
-      //  event.preventDefault();
+        e.preventDefault();
 
         // A LÓGICA DE ENVIO VAI AQUI DENTRO:
         // (Isso só roda QUANDO o botão é clicado)
@@ -23,36 +25,36 @@ export default function EsqueceuaSenha() {
 
         // Limpa o campo de e-mail
         //setEmail('');
-    //}; // <-- A função handleSubmit termina aqui.
+    }; // <-- A função handleSubmit termina aqui.
 
 
     // 3. O 'return' (JSX) vem DEPOIS da definição da lógica.
     return (
-        //  👇 AQUI ESTÁ O NOVO WRAPPER ADICIONADO 👇
-        <div className="forgot-password-wrapper">
+        
 
-            <div className="forgot-password-container">
+        <div className='content-EsqueceuSenha-1'>
 
-                {/* Agora o 'onSubmit' chama a função que acabamos de definir */}
-                
-                    <h2>Esqueceu a senha</h2>
+            <h1 className="titulo">Esqueceu a senha</h1>
+            <div className='content-EsqueceuSenha'>
+                <form onSubmit={handleSubmit} className='form-EsqueceuSenha'>
+                    {error && <p style={{ color: 'red' }}>{error}</p>}
 
-                    <input
-                        type="email"
-                        placeholder="Digite seu e-mail"
-                        required
-
-                        // Agora 'email' e 'setEmail' também existem
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-
-                    <button type="submit" className='btn'>Solicitar senha</button>
-                
+                    <div className="campoUsr">
+                        <label>Login:</label>
+                         <input type="text" placeholder="informe seu login" value={email} onChange={(e) => setEmail(e.target.value)}  />
+                    </div>
+                   
+                    <div className='areabutton'>
+                        <button type="submit" disabled={isLoading} className='btn'>
+                            {isLoading ? 'Validando...' : 'Solicitar nova senha'}
+                        </button>
+                       
+                    </div>
+                </form>
             </div>
-
-            {/* 👇 FECHANDO O NOVO WRAPPER 👇 */}
         </div>
+
+        
     )
 } // <-- A função 'EsqueceuaSenha' (o componente) termina aqui.
 // (Note que o '</div>' que estava sobrando aqui foi removido)

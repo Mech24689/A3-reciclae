@@ -62,6 +62,11 @@
     cursor: pointer;
 }
 
+.btn-logout{
+    background-color: #2B6CB0;
+    color: var(--white);
+    cursor: pointer;
+}
 .btn-cadastro{
     background-color: #F6AD55;
     color: var(--black);
