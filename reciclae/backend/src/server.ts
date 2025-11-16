@@ -1,19 +1,10 @@
-// src/server.ts
-
 import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import routes from './routes';
 
-// Para produção, é altamente recomendável usar um logger como 'morgan' ou 'winston'
-
-// --- Configuração ---
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// --- Middlewares ---
-
-// CORS (Cross-Origin Resource Sharing)
-// Em produção, você deve restringir as origens (origins) permitidas.
 app.use(cors({
     origin: "*",
     methods: ["GET","POST","PUT", "PATCH","DELETE"],
@@ -25,7 +16,7 @@ app.use(cors({
     
   }));
 
-// Body Parser: Para receber JSON no corpo das requisições
+
 app.use(express.json());
 
 // const swaggerSpec = swaggerJsdoc(options);
@@ -50,6 +41,5 @@ app.listen(PORT, () => {
     console.log(`🚀 Servidor Express rodando em http://localhost:${PORT}`);
     console.log(`Ambiente: ${process.env.NODE_ENV || 'development'}`);
 });
-
 
 export default app; // EXPORTE A INSTÂNCIA DO APP AQUI!

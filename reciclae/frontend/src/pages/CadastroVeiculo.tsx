@@ -18,6 +18,7 @@ const CadastroVeiculo: React.FC = () => {
   const navigate = useNavigate();
 
   const pessoaId = useAuthStore((state) => state.user?.pessoa_id);
+  
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
   // ESTADOS DO VEÍCULO
@@ -50,6 +51,7 @@ const CadastroVeiculo: React.FC = () => {
       try {
         // Assume que queremos editar o PRIMEIRO veículo cadastrado, se houver
         const veiculos = await getVeiculosByPessoa(pessoaId);
+
         console.log("Pessoa ID no CadastroVeiculo:", pessoaId, " veiculos=", veiculos);
         if (veiculos.length > 0) {
           const veiculo = veiculos[0];

@@ -12,8 +12,16 @@ const VEICULO_URLS = {
 };
 
 // 1. Função para buscar o(s) veículo(s) da pessoa
-export async function getVeiculosByPessoa(pessoaId: number): Promise<VeiculoResponse[]> {
+export async function getVeiculosByPessoa(pessoaId: number | undefined): Promise<VeiculoResponse[]> {
+    
+    // 💡 CORREÇÃO AQUI: Verifica se o ID é undefined antes de prosseguir
+    if (pessoaId === undefined) {
+        console.error("Pessoa ID é undefined. Não é possível buscar veículos.");
+        return []; // Retorna um array vazio imediatamente
+    }
+
     try {
+        // A chamada é segura, pois TypeScript sabe que 'pessoaId' é um 'number' neste ponto.
         const response = await api.get<VeiculoResponse[]>(VEICULO_URLS.GET_BY_PESSOA(pessoaId));
         return response.data;
     } catch (error) {

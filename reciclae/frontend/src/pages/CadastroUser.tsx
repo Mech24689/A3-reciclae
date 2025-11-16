@@ -29,16 +29,21 @@ const formatCpfCnpj = (value: string): string => {
 
 /** Remove caracteres não-numéricos e aplica a máscara de Telefone/Celular. */
 const formatTelefone = (value: string): string => {
+    // 1. Limpa o valor, deixando apenas dígitos
     const cleaned = value.replace(/\D/g, '');
+    
+    // 2. Lógica para 10 dígitos (Fixo / Celular antigo)
     if (cleaned.length <= 10) {
+        // Formato: (99) 9999-9999
         return cleaned
             .replace(/^(\d{2})(\d)/g, '($1) $2')
             .replace(/(\d{4})(\d)/, '$1-$2');
-    } else {
-        return cleaned
-            .replace(/^(\d{2})(\d)/g, '($1) $2')
-            .replace(/(\d{5})(\d)/, '$1-$2')
-            .replace(/(\d{4})(\d)/, '$1-$2');
+    } 
+    
+    else {
+        // Formato: (99) 99999-9999
+        // Captura 2 dígitos (DDD), 5 dígitos e 4 dígitos
+        return cleaned.replace(/^(\d{2})(\d{5})(\d{4})$/, '($1) $2-$3');
     }
 };
 
@@ -133,6 +138,10 @@ const CadastroUser: React.FC = () => {
 
         const cpfCnpjLimpo = cpfCnpj.replace(/\D/g, '');
         const telefoneLimpo = telefone.replace(/\D/g, '');
+        
+        const dataNascimentoObjeto = dataNascimento 
+            ? new Date(dataNascimento) 
+            : null;
 
         const data: RegistrationData = {
             pessoa: {
@@ -143,7 +152,7 @@ const CadastroUser: React.FC = () => {
                 email: email,
                 telefone: telefoneLimpo,
                 sexo: sexo,
-                data_nasc: dataNascimento || null,
+                data_nasc: dataNascimentoObjeto,
                 enderecos: endereco,
                 termos: termosAceitos ? 'ACEITO' : 'NAO_ACEITO',
             },
@@ -203,7 +212,7 @@ const CadastroUser: React.FC = () => {
 
                         <div className="campoUsr">
                             <label >CPF:</label>
-                            <input type="text" id="cpfCnpj" name="cpfCnpj" value={cpfCnpj} onChange={handleCpfCnpjChange} maxLength={11} required
+                            <input type="text" id="cpfCnpj" name="cpfCnpj" value={cpfCnpj} onChange={handleCpfCnpjChange} maxLength={14} required
                             />
                         </div>
 

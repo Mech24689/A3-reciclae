@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es2020", 
     "module": "commonjs",
-    //"rootDir": "./src", 
+//    "rootDir": "./src", 
     "outDir": "./dist", 
     "esModuleInterop": true, 
     "forceConsistentCasingInFileNames": true,
@@ -14,5 +14,10 @@
     "resolveJsonModule": true
   },
   "include": ["src/**/*.ts", "db/**/*.ts"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "ts-node": {
+    "experimentalSpecifierResolution": "node",
+    "transpileOnly": true,
+    "esm": true
+  }
 }

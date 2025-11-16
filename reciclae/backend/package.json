@@ -1,10 +1,10 @@
 {
-  "name": "api-reciclagem-cidada",
+  "name": "api-reciclagem",
   "version": "1.0.0",
   "description": "API para o sistema de gestão de reciclagem cidadã.",
   "main": "dist/server.js",
   "scripts": {
-    "start": "ts-node src/server.ts",
+    "start": "node dist/src/server.js", 
     "dev": "ts-node-dev --files --respawn src/server.ts",
     "build": "tsc",
     "knex:migrate": "knex --knexfile db/knexfile.ts migrate:latest",

@@ -36,16 +36,22 @@ const formatCpfCnpj = (value: string): string => {
 };
 
 const formatTelefone = (value: string): string => {
+    // 1. Limpa o valor, deixando apenas dígitos
     const cleaned = value.replace(/\D/g, '');
+    
+    // 2. Lógica para 10 dígitos (Fixo / Celular antigo)
     if (cleaned.length <= 10) {
+        // Formato: (99) 9999-9999
         return cleaned
             .replace(/^(\d{2})(\d)/g, '($1) $2')
             .replace(/(\d{4})(\d)/, '$1-$2');
-    } else {
-        return cleaned
-            .replace(/^(\d{2})(\d)/g, '($1) $2')
-            .replace(/(\d{5})(\d)/, '$1-$2')
-            .replace(/(\d{4})(\d)/, '$1-$2'); 
+    } 
+    
+    // 3. 🚨 Lógica CORRIGIDA para 11 dígitos (Celular moderno)
+    else {
+        // Formato: (99) 99999-9999
+        // Captura 2 dígitos (DDD), 5 dígitos e 4 dígitos
+        return cleaned.replace(/^(\d{2})(\d{5})(\d{4})$/, '($1) $2-$3');
     }
 };
 
@@ -65,7 +71,7 @@ export default function SuasInformacoes() {
     const [cpfCnpj, setCpfCnpj] = useState(''); 
     const [telefone, setTelefone] = useState(''); 
     const [endereco, setEndereco] = useState('');
-    const [sexo, setsexo] = useState('');
+    const [sexo, setSexo] = useState('');
     // Data de nascimento não está no formulário original, mas é importante para um perfil
     const [dataNascimento, setDataNascimento] = useState(''); 
 
@@ -109,11 +115,12 @@ export default function SuasInformacoes() {
                 // Formata CPF/CNPJ e Telefone para exibição
                 setCpfCnpj(formatCpfCnpj(data.cpf_cnpj || ''));
                 setTelefone(formatTelefone(data.telefone || ''));
-                setsexo(data.sexo as sexo || '');
+                setSexo(data.sexo as Sexo || '');
                 
                 if (data.data_nasc) {
                     // "1973-04-19T03:00:00.000Z" => "1973-04-19"
-                    const formattedDate = data.data_nasc.substring(0, 10); 
+                    const dateObject = new Date(data.data_nasc);
+                    const formattedDate = dateObject.toISOString().substring(0, 10);
                     setDataNascimento(formattedDate);
                 } else {
                     setDataNascimento('');
@@ -149,6 +156,10 @@ export default function SuasInformacoes() {
         const cpfCnpjLimpo = cpfCnpj.replace(/\D/g, ''); 
         const telefoneLimpo = telefone.replace(/\D/g, ''); 
 
+        const dataNascimentoObjeto = dataNascimento 
+            ? new Date(dataNascimento) 
+            : null;
+
         const payload: Partial<PessoaProfile> = {
             nome,
             email,
@@ -156,7 +167,7 @@ export default function SuasInformacoes() {
             telefone: telefoneLimpo,
             enderecos: endereco,
             sexo: sexo,
-            data_nasc: dataNascimento || null,
+            data_nasc: dataNascimentoObjeto,
         };
 
         try {
@@ -203,7 +214,7 @@ export default function SuasInformacoes() {
 
                         <div className="campoUsr">
                             <label >CPF:</label>
-                            <input type="text" id="cpfCnpj" name="cpfCnpj" value={cpfCnpj} onChange={handleCpfCnpjChange} maxLength={11} required
+                            <input type="text" id="cpfCnpj" name="cpfCnpj" value={cpfCnpj} onChange={handleCpfCnpjChange} maxLength={14} required
                             />
                         </div>
 

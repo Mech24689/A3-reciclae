@@ -1,0 +1,28 @@
+services:
+  server:
+    build:
+      context: .
+    environment:
+      NODE_ENV: production
+    ports:
+      - 3000:3000
+    # Adiciona a dependência para garantir que o banco inicie antes do servidor
+    depends_on:
+      db:
+        condition: service_started
+  
+  db: # <<<< ESTE É O HOST QUE DEVE SER USADO NO knex.ts
+    image: postgres:16-alpine # Imagem mais leve
+    restart: always
+    environment:
+      # As variáveis devem coincidir com as credenciais do knex.ts
+      POSTGRES_USER: postgres
+      POSTGRES_DB: reciclae
+      POSTGRES_PASSWORD: mysecretpassword
+    volumes:
+      - db-data:/var/lib/postgresql/data # Persiste os dados do DB
+    ports:
+      - "5432:5432" # Opcional: expõe a porta para ferramentas de DB externas
+
+volumes:
+  db-data: # Define o volume para persistência de dados

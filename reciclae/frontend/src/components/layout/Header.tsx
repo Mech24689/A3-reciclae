@@ -1,6 +1,7 @@
 import NavBar from '../navigation/NavBar'
 import { Link, useLocation } from 'react-router-dom'
 import '../../styles/header.css';
+import logoTipo from '../../assets/logo.png'
 
 export default function Header() {
   const location = useLocation();
@@ -15,7 +16,7 @@ export default function Header() {
       {/* Link para a logo (OK) */}
       <Link to="/" className="brand">
         <div className="logo">
-          <img src="/src/assets/logo.png" alt="" aria-hidden="true" />
+          <img src={logoTipo} alt="" aria-hidden="true" />
           <span>ReciclaÊ</span>
         </div>
       </Link>

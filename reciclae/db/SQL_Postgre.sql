@@ -20,11 +20,15 @@ CREATE TABLE Pessoa (
     telefone VARCHAR(20),
     email VARCHAR(100),
     enderecos TEXT,
-    sexo CHAR(1),
+    sexo character(20),
     copia_cnh_rg BYTEA, -- BYTEA é o tipo comum para dados binários (BLOB) no PostgreSQL
     prefeitura_id INT,
+    tipo_pessoa character(50),
+    termos text COLLATE,	
+
     FOREIGN KEY (prefeitura_id) REFERENCES Prefeitura(id)
 );
+
 
 -- Tabela: Usuario
 CREATE TABLE Usuario (

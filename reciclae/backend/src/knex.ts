@@ -5,7 +5,8 @@ const dbConfig = {
   client: 'pg',
   connection: {
     user: 'postgres',
-    host: 'localhost',
+    host: 'reciclae-backend-db-1',
+    //host: 'localhost',
     database: 'reciclae',
     password: 'mysecretpassword',
     port: 5432,

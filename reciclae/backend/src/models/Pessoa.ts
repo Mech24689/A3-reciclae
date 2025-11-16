@@ -1,10 +1,3 @@
-// src/models/Pessoa.ts
-
-import { s } from "vite/dist/node/chunks/moduleRunnerTransport";
-
-/**
- * Interface que representa a estrutura completa de dados da tabela 'Pessoa'.
- */
 export interface Pessoa {
     id: number;
     nome: string;

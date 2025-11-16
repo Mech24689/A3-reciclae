@@ -13,7 +13,7 @@ import Contato from "../../pages/Contato";
 import SuasInformacoes from "../../pages/SuasInformacoes";
 import { FaWhatsapp } from 'react-icons/fa'
 import QuadroColetas from "../data-display/QuadroColetas";
-import '../../styles/Login.css'; 
+import '../../styles/login.css'; 
 // 1. Definição das Propriedades (Props)
 interface AppLayoutProps {
   children: React.ReactNode;

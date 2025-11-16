@@ -10,7 +10,9 @@ export default function Contato() {
     <>
       <h1 className="titulo">Contato</h1>
       <div className="contato-wrapper">
-        <PageTitle subtitle="Fale conosco e contribua com um futuro sustentável"/>
+
+        <h2 className="Fale conosco e contribua com um futuro sustentável">Contato</h2>
+        
       </div>
 
       <div className="contato-section">
