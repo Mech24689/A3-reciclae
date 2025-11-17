@@ -1,7 +1,11 @@
-.mapa{
-    height: 500px; 
-    width: 100%; 
-    border-radius: 8px; 
-    overflow: hidden;
-    z-index: -1;
+.mapa-container {
+  height: 650px;
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.mapa {
+  height: 100%;
+  width: 100%;
 }
