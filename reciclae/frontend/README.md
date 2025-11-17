@@ -1,69 +1,86 @@
-# React + TypeScript + Vite
+# ♻️ Reciclaê – Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Interface web do Reciclaê, onde cidadãos, coletores e administradores podem interagir com o sistema e acompanhar o impacto da coleta seletiva em tempo real.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Tecnologias Utilizadas
 
-## Expanding the ESLint configuration
+- **React.js**
+- **Vite**
+- **Zustand**
+- **Axios**
+- **CSS Modules**
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 📁 Estrutura do Projeto
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+frontend/
+└── src/
+├── api/
+├── assets/
+├── components/
+├── pages/
+├── services/
+├── store/
+└── styles/
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🛠 Requisitos
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+| Ferramenta | Versão mínima |
+|------------|---------------|
+| Node.js    | 18.x |
+| npm        | 8.x |
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
+
+## ⚙️ Instalação
+
+```sh
+cd frontend
+npm install
+▶ Executar o projeto
+Copiar código
+npm run dev
+Aplicação rodando em:
+
+Copiar código
+http://localhost:5173
+🔗 Configuração da API
+Edite o arquivo:
+
+Copiar código
+src/api/api.ts
+Exemplo:
+
+Copiar código
+export const API_URL = "http://localhost:3001";
+
+📌 Funcionalidades
+✔ Cadastro/Login
+✔ Localização de pontos de coleta
+✔ Painel do cidadão com impacto ambiental
+✔ Tela do coletor com validação via QR Code
+✔ Sistema de recompensas e gamificação
+✔ Interface responsiva e modular
+
+🧭 Principais Telas
+🟩 Login
+🟩 Cadastro
+🟩 Pontos de Coleta (Mapa)
+🟩 Dashboard do Usuário
+🟩 Módulo do Coletor
+🟩 Configurações
+
+👥 Desenvolvedores
+Gabriel Dias Cristino Sierra - 822144973
+Leonardo Freitas Moraes - 822135116
+Marcio Balieiro de Faria - 824219962
+Gabriel dos Santos Castro - 822157975
+Lucas Quireza - 822229907
+Caio Bonato - 822165248
+Juan Silva Souza - 822138724
+Patrick Hernani Souza da Silva 823134370
+
+📜 Licença
+Projeto acadêmico – Uso não comercial.
