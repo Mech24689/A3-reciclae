@@ -2,11 +2,11 @@ import PageTitle from '../components/layout/PageTitle'
 import Section from '../components/layout/Section'
 
 // estilo externo
-import '../styles/Ponto_coleta.css'
+import '../styles/ponto_coleta.css'
 
 // importa o estilo e os componentes do Leaflet
 import 'leaflet/dist/leaflet.css'
-import { MapContainer, TileLayer, Popup, CircleMarker } from 'react-leaflet'
+import { MapContainer,TileLayer, Popup, CircleMarker } from 'react-leaflet'
 
 // 🔹 PONTOS COM ENDEREÇO E REGIÃO
 const pontos = [
