@@ -80,7 +80,7 @@ Gabriel dos Santos Castro - 822157975
 Lucas Quireza - 822229907
 Caio Bonato - 822165248
 Juan Silva Souza - 822138724
-Patrick Hernani Souza da Silva 823134370
+Patrick Hernani Souza da Silva - 823134370
 
 📜 Licença
 Projeto acadêmico – Uso não comercial.
