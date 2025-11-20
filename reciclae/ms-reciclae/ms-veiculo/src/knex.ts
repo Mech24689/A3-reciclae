@@ -4,11 +4,11 @@ import knex from 'knex';
 const dbConfig = {
   client: 'pg',
   connection: {
-    user: 'postgres',
-    host: process.env.DB_HOST || 'localhost',
-    database: 'reciclae',
-    password: 'mysecretpassword',
-    port: 5432,
+    host: process.env.DB_HOST || 'localhost', // Será 'db' no Docker
+    user: process.env.DB_USER || 'postgres',
+    password: process.env.DB_PASSWORD || 'mysecretpassword',
+    database: process.env.DB_NAME || 'reciclae',
+    port: Number(process.env.DB_PORT) || 5432,
   },
   pool: { min: 2, max: 10 }
 };

@@ -1,9 +1,8 @@
---
--- 1. TABELAS DE BASE
---
+-- ----------------------------------------
+-- 1. TABELAS BASE (Sem dependências externas)
+-- ----------------------------------------
 
--- Tabela: Prefeitura
-CREATE TABLE Prefeitura (
+CREATE TABLE IF NOT EXISTS public.prefeitura (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(45) NOT NULL,
     cnpj VARCHAR(18),
@@ -11,105 +10,7 @@ CREATE TABLE Prefeitura (
     ramo_ativ VARCHAR(255)
 );
 
--- Tabela: Pessoa
-CREATE TABLE Pessoa (
-    id SERIAL PRIMARY KEY,
-    nome VARCHAR(100) NOT NULL,
-    cpf_cnpj VARCHAR(20) UNIQUE,
-    data_nasc DATE,
-    telefone VARCHAR(20),
-    email VARCHAR(100),
-    enderecos TEXT,
-    sexo character(20),
-    copia_cnh_rg BYTEA, -- BYTEA é o tipo comum para dados binários (BLOB) no PostgreSQL
-    prefeitura_id INT,
-    tipo_pessoa character(50),
-    termos text COLLATE,	
-
-    FOREIGN KEY (prefeitura_id) REFERENCES Prefeitura(id)
-);
-
-
--- Tabela: Usuario
-CREATE TABLE Usuario (
-    id SERIAL PRIMARY KEY,
-    tipo VARCHAR(50) NOT NULL CHECK (tipo IN ('CIDADAO', 'FUNCIONARIO', 'GESTOR')), -- Usando CHECK para simular ENUM
-    login VARCHAR(45) UNIQUE NOT NULL,
-    senha VARCHAR(45) NOT NULL,
-    prefeitura_id INT NOT NULL,
-    FOREIGN KEY (prefeitura_id) REFERENCES Prefeitura(id)
-);
-
--- Tabela: Veiculo
-CREATE TABLE Veiculo (
-    id SERIAL PRIMARY KEY,
-    placa VARCHAR(10) UNIQUE NOT NULL,
-    modelo VARCHAR(30),
-    marca VARCHAR(30),
-    categoria VARCHAR(30),
-    data_aquisicao DATE,
-    quilometragem INT,
-    pessoa_id INT NOT NULL,
-    FOREIGN KEY (pessoa_id) REFERENCES Pessoa(id)
-);
-
--- Tabela: Endereco
-CREATE TABLE Endereco (
-    id SERIAL PRIMARY KEY,
-    logradouro TEXT,
-    cep VARCHAR(9),
-    numero VARCHAR(20),
-    complemento VARCHAR(30),
-    bairro VARCHAR(100),
-    cidade VARCHAR(100),
-    estado VARCHAR(2),
-    tipo VARCHAR(50) CHECK (tipo IN ('RUA', 'AV', 'TRAVESSA', 'OUTRO')),
-    pessoa_id INT NOT NULL,
-    FOREIGN KEY (pessoa_id) REFERENCES Pessoa(id)
-);
-
--- Tabela: PontoColeta
-CREATE TABLE PontoColeta (
-    id SERIAL PRIMARY KEY,
-    nome VARCHAR(100) NOT NULL,
-    descricao TEXT,
-    latitude NUMERIC(10,8), -- Usando NUMERIC para o DECIMAL
-    longitude NUMERIC(10,8),
-    horario_funcionamento VARCHAR(100),
-    pessoa_id INT,
-    FOREIGN KEY (pessoa_id) REFERENCES Pessoa(id)
-);
-
-
---
--- 2. TABELAS DE PROCESSO E RELACIONAMENTOS
---
-
--- Tabela: Notificacao
-CREATE TABLE Notificacao (
-    id SERIAL PRIMARY KEY,
-    nome_mensagem VARCHAR(50),
-    mensagem TEXT NOT NULL,
-    descricao TEXT,
-    data_envio DATE NOT NULL,
-    data_prazo DATE,
-    prefeitura_id INT,
-    FOREIGN KEY (prefeitura_id) REFERENCES Prefeitura(id)
-);
-
--- Tabela: AgendaColeta
-CREATE TABLE AgendaColeta (
-    id SERIAL PRIMARY KEY,
-    data_semana VARCHAR(3) NOT NULL CHECK (data_semana IN ('DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SAB')),
-    periodo_coleta VARCHAR(30),
-    horario_inicio TIME,
-    horario_fim TIME,
-    prefeitura_id INT NOT NULL,
-    FOREIGN KEY (prefeitura_id) REFERENCES Prefeitura(id)
-);
-
--- Tabela: Desafio
-CREATE TABLE Desafio (
+CREATE TABLE IF NOT EXISTS public.desafio (
     id SERIAL PRIMARY KEY,
     titulo VARCHAR(100) NOT NULL,
     descricao TEXT,
@@ -118,65 +19,226 @@ CREATE TABLE Desafio (
     data_fim DATE NOT NULL
 );
 
--- Tabela: Recompensa
-CREATE TABLE Recompensa (
-    id SERIAL PRIMARY KEY,
-    nome VARCHAR(50) NOT NULL,
-    pontuacao_necessaria INT NOT NULL,
-    descricao TEXT,
-    prefeitura_id INT,
-    FOREIGN KEY (prefeitura_id) REFERENCES Prefeitura(id)
-);
+-- ----------------------------------------
+-- 2. TABELAS DE NÍVEL 1 (Dependem apenas de PREFEITURA)
+-- ----------------------------------------
 
--- Tabela: Conquista
-CREATE TABLE Conquista (
+CREATE TABLE IF NOT EXISTS public.pessoa (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
-    pontuacao_minima INT NOT NULL,
+    cpf_cnpj VARCHAR(20) UNIQUE, -- Garantir que CPF/CNPJ seja único
+    data_nasc DATE,
+    telefone VARCHAR(20),
+    email VARCHAR(100),
+    enderecos VARCHAR(255), -- Melhor prática seria TEXT, mas mantendo o tamanho
+    sexo VARCHAR(20), -- Alterado de CHAR(20) para VARCHAR(20)
+    copia_cnh_rg BYTEA,
+    prefeitura_id INTEGER,
+    tipo_pessoa VARCHAR(50), -- Alterado de CHAR(50) para VARCHAR(50)
+    termos TEXT,
+    CONSTRAINT pessoa_prefeitura_id_fkey FOREIGN KEY (prefeitura_id)
+        REFERENCES public.prefeitura (id) ON UPDATE NO ACTION ON DELETE NO ACTION
+);
+
+CREATE TABLE IF NOT EXISTS public.recompensa (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(50) NOT NULL,
+    pontuacao_necessaria INTEGER NOT NULL,
+    descricao TEXT,
+    prefeitura_id INTEGER,
+    CONSTRAINT recompensa_prefeitura_id_fkey FOREIGN KEY (prefeitura_id)
+        REFERENCES public.prefeitura (id) ON UPDATE NO ACTION ON DELETE NO ACTION
+);
+
+CREATE TABLE IF NOT EXISTS public.notificacao (
+    id SERIAL PRIMARY KEY,
+    nome_mensagem VARCHAR(50),
+    mensagem TEXT NOT NULL,
+    descricao TEXT,
+    data_envio DATE NOT NULL,
+    data_prazo DATE,
+    prefeitura_id INTEGER,
+    CONSTRAINT notificacao_prefeitura_id_fkey FOREIGN KEY (prefeitura_id)
+        REFERENCES public.prefeitura (id) ON UPDATE NO ACTION ON DELETE NO ACTION
+);
+
+-- ----------------------------------------
+-- 3. TABELAS DE NÍVEL 2 (Dependem de PESSOA ou PREFEITURA)
+-- ----------------------------------------
+
+CREATE TABLE IF NOT EXISTS public.usuario (
+    id SERIAL PRIMARY KEY,
+    login VARCHAR(100) UNIQUE NOT NULL,
+    senha VARCHAR(255) NOT NULL,
+    prefeitura_id INTEGER NOT NULL,
+    pessoa_id INTEGER, -- FK para Pessoa (pode ser null se for um usuário de sistema não-pessoa)
+    role VARCHAR(50), -- Alterado de CHAR(50) para VARCHAR(50)
+    username VARCHAR(100), -- Alterado de CHAR(100) para VARCHAR(100)
+    CONSTRAINT usuario_prefeitura_id_fkey FOREIGN KEY (prefeitura_id)
+        REFERENCES public.prefeitura (id) ON UPDATE NO ACTION ON DELETE NO ACTION
+);
+
+CREATE TABLE IF NOT EXISTS public.agendacoleta (
+    id SERIAL PRIMARY KEY,
+    data_semana VARCHAR(3) NOT NULL,
+    periodo_coleta VARCHAR(30),
+    horario_inicio TIME WITHOUT TIME ZONE,
+    horario_fim TIME WITHOUT TIME ZONE,
+    prefeitura_id INTEGER NOT NULL,
+    CONSTRAINT agendacoleta_prefeitura_id_fkey FOREIGN KEY (prefeitura_id)
+        REFERENCES public.prefeitura (id) ON UPDATE NO ACTION ON DELETE NO ACTION,
+    CONSTRAINT agendacoleta_data_semana_check CHECK (data_semana IN ('DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SAB'))
+);
+
+CREATE TABLE IF NOT EXISTS public.pontocoleta (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    descricao TEXT,
+    latitude NUMERIC(10,8),
+    longitude NUMERIC(10,8),
+    horario_funcionamento VARCHAR(100),
+    pessoa_id INTEGER, -- Pessoa responsável pelo Ponto de Coleta
+    CONSTRAINT pontocoleta_pessoa_id_fkey FOREIGN KEY (pessoa_id)
+        REFERENCES public.pessoa (id) ON UPDATE NO ACTION ON DELETE NO ACTION
+);
+
+CREATE TABLE IF NOT EXISTS public.relatorioimpacto (
+    id SERIAL PRIMARY KEY,
+    data_criacao DATE NOT NULL,
+    data_prazo DATE,
+    conteudo TEXT,
+    prefeitura_id INTEGER NOT NULL,
+    CONSTRAINT relatorioimpacto_prefeitura_id_fkey FOREIGN KEY (prefeitura_id)
+        REFERENCES public.prefeitura (id) ON UPDATE NO ACTION ON DELETE NO ACTION
+);
+
+-- ----------------------------------------
+-- 4. TABELAS DE NÍVEL 3 (Dependem de PESSOA, DESAFIO, PONTOCOLETA)
+-- ----------------------------------------
+
+CREATE TABLE IF NOT EXISTS public.veiculo (
+    id SERIAL PRIMARY KEY,
+    placa VARCHAR(10) UNIQUE NOT NULL,
+    modelo VARCHAR(30),
+    marca VARCHAR(30),
+    categoria VARCHAR(30),
+    data_aquisicao DATE,
+    quilometragem INTEGER,
+    pessoa_id INTEGER NOT NULL, -- Pessoa proprietária do veículo
+    ano INTEGER,
+    cor VARCHAR(200), -- Alterado de CHAR(200) para VARCHAR(200)
+    tipo_veiculo VARCHAR(200), -- Alterado de CHAR(200) para VARCHAR(200)
+    CONSTRAINT veiculo_pessoa_id_fkey FOREIGN KEY (pessoa_id)
+        REFERENCES public.pessoa (id) ON UPDATE NO ACTION ON DELETE NO ACTION
+);
+
+CREATE TABLE IF NOT EXISTS public.endereco (
+    id SERIAL PRIMARY KEY,
+    logradouro TEXT,
+    cep VARCHAR(9),
+    numero VARCHAR(20),
+    complemento VARCHAR(30),
+    bairro VARCHAR(100),
+    cidade VARCHAR(100),
+    estado VARCHAR(2),
+    tipo VARCHAR(50),
+    pessoa_id INTEGER NOT NULL,
+    CONSTRAINT endereco_pessoa_id_fkey FOREIGN KEY (pessoa_id)
+        REFERENCES public.pessoa (id) ON UPDATE NO ACTION ON DELETE NO ACTION,
+    CONSTRAINT endereco_tipo_check CHECK (tipo IN ('RUA', 'AV', 'TRAVESSA', 'OUTRO'))
+);
+
+CREATE TABLE IF NOT EXISTS public.conquista (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    pontuacao_minima INTEGER NOT NULL,
     descricao TEXT,
     data_conquista DATE,
-    pessoa_id INT NOT NULL,
-    FOREIGN KEY (pessoa_id) REFERENCES Pessoa(id)
+    pessoa_id INTEGER NOT NULL,
+    CONSTRAINT conquista_pessoa_id_fkey FOREIGN KEY (pessoa_id)
+        REFERENCES public.pessoa (id) ON UPDATE NO ACTION ON DELETE NO ACTION
 );
 
--- Tabela: RegistroColeta
-CREATE TABLE RegistroColeta (
+CREATE TABLE IF NOT EXISTS public.participacaodesafio (
+    id SERIAL PRIMARY KEY,
+    pessoa_id INTEGER NOT NULL,
+    desafio_id INTEGER NOT NULL,
+    data_inscricao DATE NOT NULL,
+    CONSTRAINT participacaodesafio_pessoa_id_desafio_id_key UNIQUE (pessoa_id, desafio_id),
+    CONSTRAINT participacaodesafio_desafio_id_fkey FOREIGN KEY (desafio_id)
+        REFERENCES public.desafio (id) ON UPDATE NO ACTION ON DELETE NO ACTION,
+    CONSTRAINT participacaodesafio_pessoa_id_fkey FOREIGN KEY (pessoa_id)
+        REFERENCES public.pessoa (id) ON UPDATE NO ACTION ON DELETE NO ACTION
+);
+
+CREATE TABLE IF NOT EXISTS public.agendacoletarelacionamento (
+    id SERIAL PRIMARY KEY,
+    agendacoleta_id INTEGER NOT NULL,
+    pontocoleta_id INTEGER NOT NULL,
+    flag_coleta_forcada BOOLEAN DEFAULT FALSE,
+    dt_hora_coleta TIMESTAMP WITHOUT TIME ZONE,
+    CONSTRAINT agendacoletarelacionamento_agendacoleta_id_pontocoleta_id_key UNIQUE (agendacoleta_id, pontocoleta_id),
+    CONSTRAINT agendacoletarelacionamento_agendacoleta_id_fkey FOREIGN KEY (agendacoleta_id)
+        REFERENCES public.agendacoleta (id) ON UPDATE NO ACTION ON DELETE NO ACTION,
+    CONSTRAINT agendacoletarelacionamento_pontocoleta_id_fkey FOREIGN KEY (pontocoleta_id)
+        REFERENCES public.pontocoleta (id) ON UPDATE NO ACTION ON DELETE NO ACTION
+);
+
+-- ----------------------------------------
+-- 5. TABELAS DE NÍVEL 4 (Dependem de VEICULO, PESSOA, PONTOCOLETA)
+-- ----------------------------------------
+
+CREATE TABLE IF NOT EXISTS public.registrocoleta (
     id SERIAL PRIMARY KEY,
     data_coleta DATE NOT NULL,
-    hora_inicio TIME,
-    hora_fim TIME,
-    quantidade_descartada INT,
+    hora_inicio TIME WITHOUT TIME ZONE,
+    hora_fim TIME WITHOUT TIME ZONE,
+    quantidade_descartada INTEGER,
     tipo_material VARCHAR(50),
-    veiculo_id INT NOT NULL,
-    pessoa_id INT NOT NULL, -- Motorista/Responsável pela coleta
-    ponto_coleta_id INT NOT NULL,
-    FOREIGN KEY (veiculo_id) REFERENCES Veiculo(id),
-    FOREIGN KEY (pessoa_id) REFERENCES Pessoa(id),
-    FOREIGN KEY (ponto_coleta_id) REFERENCES PontoColeta(id)
+    veiculo_id INTEGER NOT NULL,
+    pessoa_id INTEGER NOT NULL,
+    ponto_coleta_id INTEGER NOT NULL,
+    CONSTRAINT registrocoleta_pessoa_id_fkey FOREIGN KEY (pessoa_id)
+        REFERENCES public.pessoa (id) ON UPDATE NO ACTION ON DELETE NO ACTION,
+    CONSTRAINT registrocoleta_ponto_coleta_id_fkey FOREIGN KEY (ponto_coleta_id)
+        REFERENCES public.pontocoleta (id) ON UPDATE NO ACTION ON DELETE NO ACTION,
+    CONSTRAINT registrocoleta_veiculo_id_fkey FOREIGN KEY (veiculo_id)
+        REFERENCES public.veiculo (id) ON UPDATE NO ACTION ON DELETE NO ACTION
 );
 
--- Tabela: AgendaColetaRelacionamento (Relacionamento N:M entre AgendaColeta e PontoColeta)
-CREATE TABLE AgendaColetaRelacionamento (
-    id SERIAL PRIMARY KEY,
-    agendacoleta_id INT NOT NULL,
-    pontocoleta_id INT NOT NULL,
-    flag_coleta_forcada BOOLEAN DEFAULT FALSE, -- BOOLEAN é o tipo de dado correto
-    dt_hora_coleta TIMESTAMP WITHOUT TIME ZONE, -- TIMESTAMP é o tipo mais adequado para DATETIME
-    FOREIGN KEY (agendacoleta_id) REFERENCES AgendaColeta(id),
-    FOREIGN KEY (pontocoleta_id) REFERENCES PontoColeta(id),
-    UNIQUE (agendacoleta_id, pontocoleta_id)
-);
+-- ----------------------------------------
+-- 6. TABELAS DE NÍVEL 5 (Dependem de REGISTROCOLETA)
+-- ----------------------------------------
 
--- Tabela: TipoMaterial
-CREATE TABLE TipoMaterial (
+CREATE TABLE IF NOT EXISTS public.tipomaterial (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(50) NOT NULL,
     descricao TEXT,
-    registrocoleta_id INT,
-    FOREIGN KEY (registrocoleta_id) REFERENCES RegistroColeta(id)
+    registrocoleta_id INTEGER, -- FK para Registro Coleta (pode ser null)
+    CONSTRAINT tipomaterial_registrocoleta_id_fkey FOREIGN KEY (registrocoleta_id)
+        REFERENCES public.registrocoleta (id) ON UPDATE NO ACTION ON DELETE NO ACTION
 );
 
--- Tabela: ContagemDescarte
+-- ----------------------------------------
+-- 7. TABELAS DE NÍVEL 6 (Dependem de REGISTROCOLETA, PONTOCOLETA, PESSOA, TIPOMATERIAL)
+-- ----------------------------------------
+
+CREATE TABLE IF NOT EXISTS public.feedback (
+    id SERIAL PRIMARY KEY,
+    registrocoleta_id INTEGER,
+    ponto_coleta_id INTEGER,
+    avaliacao INTEGER,
+    comentario TEXT,
+    pessoa_id INTEGER NOT NULL,
+    CONSTRAINT feedback_pessoa_id_fkey FOREIGN KEY (pessoa_id)
+        REFERENCES public.pessoa (id) ON UPDATE NO ACTION ON DELETE NO ACTION,
+    CONSTRAINT feedback_ponto_coleta_id_fkey FOREIGN KEY (ponto_coleta_id)
+        REFERENCES public.pontocoleta (id) ON UPDATE NO ACTION ON DELETE NO ACTION,
+    CONSTRAINT feedback_registrocoleta_id_fkey FOREIGN KEY (registrocoleta_id)
+        REFERENCES public.registrocoleta (id) ON UPDATE NO ACTION ON DELETE NO ACTION,
+    CONSTRAINT feedback_avaliacao_check CHECK (avaliacao >= 1 AND avaliacao <= 5)
+);
+
 CREATE TABLE ContagemDescarte (
     id SERIAL PRIMARY KEY,
     quantidade INT NOT NULL,
@@ -187,38 +249,4 @@ CREATE TABLE ContagemDescarte (
     FOREIGN KEY (pessoa_id) REFERENCES Pessoa(id),
     FOREIGN KEY (tipomaterial_id) REFERENCES TipoMaterial(id),
     FOREIGN KEY (ponto_coleta_id) REFERENCES PontoColeta(id)
-);
-
--- Tabela: ParticipacaoDesafio
-CREATE TABLE ParticipacaoDesafio (
-    id SERIAL PRIMARY KEY,
-    pessoa_id INT NOT NULL,
-    desafio_id INT NOT NULL,
-    data_inscricao DATE NOT NULL,
-    FOREIGN KEY (pessoa_id) REFERENCES Pessoa(id),
-    FOREIGN KEY (desafio_id) REFERENCES Desafio(id),
-    UNIQUE (pessoa_id, desafio_id)
-);
-
--- Tabela: RelatorioImpacto
-CREATE TABLE RelatorioImpacto (
-    id SERIAL PRIMARY KEY,
-    data_criacao DATE NOT NULL,
-    data_prazo DATE,
-    conteudo TEXT,
-    prefeitura_id INT NOT NULL,
-    FOREIGN KEY (prefeitura_id) REFERENCES Prefeitura(id)
-);
-
--- Tabela: Feedback
-CREATE TABLE Feedback (
-    id SERIAL PRIMARY KEY,
-    registrocoleta_id INT,
-    ponto_coleta_id INT,
-    avaliacao INT CHECK (avaliacao >= 1 AND avaliacao <= 5),
-    comentario TEXT,
-    pessoa_id INT NOT NULL, -- Quem deu o feedback (Cidadão ou funcionário)
-    FOREIGN KEY (registrocoleta_id) REFERENCES RegistroColeta(id),
-    FOREIGN KEY (ponto_coleta_id) REFERENCES PontoColeta(id),
-    FOREIGN KEY (pessoa_id) REFERENCES Pessoa(id)
 );

@@ -15,6 +15,7 @@ services:
     image: postgres:16-alpine # Imagem mais leve
     restart: always
     environment:
+      DB_HOST: reciclae-backend-db-1
       # As variáveis devem coincidir com as credenciais do knex.ts
       POSTGRES_USER: postgres
       POSTGRES_DB: reciclae

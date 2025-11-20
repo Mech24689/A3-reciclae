@@ -1,6 +1,6 @@
 // src/services/veiculoService.ts
 
-import api from '../api/httpClient'; // Assumindo que você tem um axios instance configurado
+import authVeiculo from '../api/httpVeiculo'; 
 import { type VeiculoData, type VeiculoResponse } from '../types/estrutura';
 
 const VEICULO_URLS = {
@@ -22,7 +22,7 @@ export async function getVeiculosByPessoa(pessoaId: number | undefined): Promise
 
     try {
         // A chamada é segura, pois TypeScript sabe que 'pessoaId' é um 'number' neste ponto.
-        const response = await api.get<VeiculoResponse[]>(VEICULO_URLS.GET_BY_PESSOA(pessoaId));
+        const response = await authVeiculo.get<VeiculoResponse[]>(VEICULO_URLS.GET_BY_PESSOA(pessoaId));
         return response.data;
     } catch (error) {
         console.error("Erro ao buscar veículos:", error);
@@ -34,7 +34,7 @@ export async function getVeiculosByPessoa(pessoaId: number | undefined): Promise
 export async function updateVeiculo(veiculoId: number, data: Partial<VeiculoData>): Promise<VeiculoResponse> {
     try {
         // Usa PUT para atualização (ou PATCH, dependendo do backend)
-        const response = await api.put<VeiculoResponse>(VEICULO_URLS.UPDATE(veiculoId), data);
+        const response = await authVeiculo.put<VeiculoResponse>(VEICULO_URLS.UPDATE(veiculoId), data);
         return response.data;
     } catch (error) {
         console.error("Erro ao atualizar veículo:", error);
@@ -47,7 +47,7 @@ export async function registerVeiculo(data: VeiculoData): Promise<VeiculoRespons
         // Envia o objeto VeiculoData para o backend
         console.log("Registrando veículo com dados:", data);
         
-        const response = await api.post<VeiculoResponse>(VEICULO_URLS.REGISTER, data);
+        const response = await authVeiculo.post<VeiculoResponse>(VEICULO_URLS.REGISTER, data);
         return response.data;
     } catch (error) {
         console.error("Erro ao registrar veículo:", error);

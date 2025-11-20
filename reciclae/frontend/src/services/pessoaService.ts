@@ -1,4 +1,4 @@
-import api from '../api/httpClient'; 
+import api from '../api/httpPessoa'; 
 import { type RegistrationData } from '../types/estrutura'; 
 
 // Defina a interface para o perfil da pessoa que o backend retorna (baseado no que você cadastra)

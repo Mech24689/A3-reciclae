@@ -1,0 +1,92 @@
+services:
+  # 1. SERVIÇO DO BANCO DE DADOS (DB)
+  db:
+    image: postgres:16-alpine 
+    container_name: reciclae_db
+    restart: always
+    environment:
+      # Credenciais do DB (devem ser as mesmas usadas pelo Knex nos MSs)
+      POSTGRES_USER: postgres
+      POSTGRES_DB: reciclae
+      POSTGRES_PASSWORD: mysecretpassword
+    volumes:
+      - db-data:/var/lib/postgresql/data # Volume para persistir os dados
+    ports:
+      - "5432:5432" # Porta para acesso externo (opcional)
+    networks:
+      - reciclae_network # Coloca o DB na rede compartilhada
+
+  # 2. SERVIÇO DO MICROSSERVIÇO USUÁRIO (Porta 3001)
+  ms-usuario:
+    build:
+      context: ./ms-usuario # Caminho para a pasta ms-usuario
+      dockerfile: Dockerfile
+    container_name: ms_usuario
+    ports:
+      - "3001:3001"
+    environment:
+      # Configuração do DB para o MS-Usuário
+      DB_HOST: reciclae_db # 🚨 O nome do serviço do DB é o HOST
+      DB_USER: postgres
+      DB_PASSWORD: mysecretpassword
+      DB_NAME: reciclae
+      PORT: 3001
+    depends_on:
+      db:
+        condition: service_started
+    networks:
+      - reciclae_network
+
+  # 3. SERVIÇO DO MICROSSERVIÇO PESSOA (Porta 3002)
+  ms-pessoa:
+    build:
+      context: ./ms-pessoa # Caminho para a pasta ms-pessoa
+      dockerfile: Dockerfile
+    container_name: ms_pessoa
+    ports:
+      - "3002:3002"
+    environment:
+      # Configuração do DB para o MS-Pessoa
+      DB_HOST: reciclae_db 
+      DB_USER: postgres
+      DB_PASSWORD: mysecretpassword
+      DB_NAME: reciclae
+      PORT: 3002
+      # 🚨 URL para comunicação com o MS-Usuário via rede Docker
+      MS_USUARIO_URL: http://ms-usuario:3001/api 
+    depends_on:
+      ms-usuario:
+        condition: service_started
+    networks:
+      - reciclae_network
+
+  # 4. SERVIÇO DO MICROSSERVIÇO VEÍCULO (Porta 3003)
+  ms-veiculo:
+    build:
+      context: ./ms-veiculo # Caminho para a pasta ms-veiculo
+      dockerfile: Dockerfile
+    container_name: ms_veiculo
+    ports:
+      - "3003:3003"
+    environment:
+      # Configuração do DB para o MS-Veiculo
+      DB_HOST: reciclae_db 
+      DB_USER: postgres
+      DB_PASSWORD: mysecretpassword
+      DB_NAME: reciclae
+      PORT: 3003
+      # 🚨 URL para comunicação com o MS-Pessoa
+      MS_PESSOA_URL: http://ms-pessoa:3002/api
+    depends_on:
+      ms-pessoa:
+        condition: service_started
+    networks:
+      - reciclae_network
+
+# 5. VOLUMES E REDES
+volumes:
+  db-data: # Volume para persistir os dados do DB
+
+networks:
+  reciclae_network:
+    driver: bridge # Define a rede virtual para comunicação entre os containers
